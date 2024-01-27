@@ -9,8 +9,10 @@ import openai
 
 app = Flask(__name__)
 
-# データベース設定（PostgreSQL）
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/mydatabase'
+
+# データベース設定（環境変数から読み込み）
+database_url = os.environ.get('DATABASE_URL', 'postgresql://username:password@localhost/mydatabase')
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
