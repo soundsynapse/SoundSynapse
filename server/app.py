@@ -11,12 +11,12 @@ app = Flask(__name__)
 
 
 # データベース設定（環境変数から読み込み）
-database_url = os.environ.get('DATABASE_URL', 'postgresql://username:password@localhost/mydatabase')
+database_url = os.environ.get('DATABASE_URL', 'postgresql://ramen:0203@localhost/musicdatabase')
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# データベースモデルの定義
+dd
 class Track(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     track_name = db.Column(db.String, nullable=False)
