@@ -15,11 +15,7 @@ export const SearchResult = ({ searchResults, onClick }: SearchResultProps) => {
   return (
     <>
       {searchResults.map((result) => (
-        <Text
-          className="result-text"
-          onClick={() => onClick(result)}
-          number={searchResults.length + 1}
-        >
+        <Text className="result-text" onClick={() => onClick(result)}>
           {result.name}
         </Text>
       ))}
@@ -27,7 +23,7 @@ export const SearchResult = ({ searchResults, onClick }: SearchResultProps) => {
   );
 };
 
-const Text = styled.div<{ number: number }>`
+const Text = styled.div`
   padding: 10px 20px;
   font-size: 24px;
   background-color: white;
