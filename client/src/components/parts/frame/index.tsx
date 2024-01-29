@@ -29,4 +29,5 @@ const TitleText = styled.div`
   font-size: 46px;
   margin: 0;
   color: white;
+  margin-bottom: 100px;
 `;
