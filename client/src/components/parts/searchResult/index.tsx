@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "../../../style.css";
 
-type MusicData = {
+export type MusicData = {
   id: string;
   name: string;
 };
@@ -15,7 +15,11 @@ export const SearchResult = ({ searchResults, onClick }: SearchResultProps) => {
   return (
     <>
       {searchResults.map((result) => (
-        <Text className="result-text" onClick={() => onClick(result)}>
+        <Text
+          className="result-text"
+          onClick={() => onClick(result)}
+          number={searchResults.length + 1}
+        >
           {result.name}
         </Text>
       ))}
@@ -23,7 +27,7 @@ export const SearchResult = ({ searchResults, onClick }: SearchResultProps) => {
   );
 };
 
-const Text = styled.div`
+const Text = styled.div<{ number: number }>`
   padding: 10px 20px;
   font-size: 24px;
   background-color: white;
@@ -36,7 +40,7 @@ const Text = styled.div`
     border-bottom-right-radius: 24px;
   }
 
-  &:nth-child(2) {
+  &:nth-child(1) {
     border-top-right-radius: 24px;
     border-top-left-radius: 24px;
   }
