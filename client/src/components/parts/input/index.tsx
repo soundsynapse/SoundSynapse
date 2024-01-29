@@ -10,6 +10,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <StyledInput
         type="text"
+        className="input-text"
         placeholder={`${
           type === "user" ? "ユーザー名" : "好きな曲"
         }を登録しよう♪`}
@@ -28,6 +29,7 @@ const StyledInput = styled.input`
   height: 30px;
   width: 400px;
   font-size: 24px;
+  font-weight: 700;
 
   &::placeholder {
     color: gray;
