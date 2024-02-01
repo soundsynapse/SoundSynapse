@@ -51,12 +51,13 @@ class UserTrackSelection(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'), nullable=False)
 
-@app.before_first_request
-def initialize_database():
-    db.create_all()
+# @app.before_first_request
+# def initialize_database():
+#     db.create_all()
 
 from flask import flash
 
+#登録ページに遷移させる
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -80,6 +81,7 @@ def register():
 
     return render_template('register.html')
 
+#ログイン処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -188,4 +190,4 @@ def find_similar_users():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5005, debug=True)
