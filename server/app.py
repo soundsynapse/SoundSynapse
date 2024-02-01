@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import openai
 import os
 
 app = Flask(__name__)
 
-openai.api_key = "YOUR_API_KEY"
+openai.api_key = "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"
 
 # 秘密鍵の設定
 app.secret_key = os.urandom(24)
