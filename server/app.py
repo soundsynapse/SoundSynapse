@@ -57,6 +57,10 @@ class UserTrackSelection(db.Model):
 
 from flask import flash
 
+@app.route('/hello')
+def hello():
+    return {'hello':'world'}
+
 #登録ページに遷移させる
 @app.route('/register', methods=['GET', 'POST'])
 def register():
