@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import openai
 import os
+import return_artist as ra
 
 app = Flask(__name__)
 
@@ -29,22 +30,39 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
 class Track(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
     track_name = db.Column(db.String, nullable=False)
     # 他のトラック情報フィールド...
-    embedding = db.Column(db.ARRAY(db.Float))
-
+    acousticness=db.Column(db.Float)
+    danceability=db.Column(db.Float)
+    duration_ms=db.Column(db.Integer)
+    energy=db.Column(db.Float)
+    id = db.Column(db.Integer, primary_key=True)
+    instrumentalness=db.Column(db.Integer)
+    key=db.Column(db.Integer)
+    liveness=db.Column(db.Float)
+    mode=db.Column(db.Integer)
+    speechiness=db.Column(db.Float)
+    tempo=db.Column(db.Float)
+    time_signature=db.Column(db.Integer)
+    type=db.Column(db.String)
+    valence=db.Column(db.Float)
+    
 class UserTrackSelection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'), nullable=False)
 
-@app.before_first_request
-def initialize_database():
-    db.create_all()
+# @app.before_first_request
+# def initialize_database():
+#     db.create_all()
 
 from flask import flash
 
+@app.route('/artist/<string:artist>')
+def return_name(artist):
+    return ra.return_artist(artist)
+
+#登録ページに遷移させる
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -68,6 +86,7 @@ def register():
 
     return render_template('register.html')
 
+#ログイン処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -176,4 +195,4 @@ def find_similar_users():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5005, debug=True)
