@@ -7,4 +7,6 @@ pandas
 numpy
 scikit-learn
 google-generativeai
-
+spotipy 
+psycopg2 
+pyarrow 
