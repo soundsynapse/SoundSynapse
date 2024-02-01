@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 
-openai.api_key = "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"
+openai.api_key = ""
 
 # 秘密鍵の設定
 app.secret_key = os.urandom(24)
