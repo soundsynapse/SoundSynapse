@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import openai
 import os
+import return_artist as ra
 
 app = Flask(__name__)
 
@@ -57,9 +58,9 @@ class UserTrackSelection(db.Model):
 
 from flask import flash
 
-@app.route('/hello')
-def hello():
-    return {'hello':'world'}
+@app.route('/artist/<string:artist>')
+def return_name(artist):
+    return ra.return_artist(artist)
 
 #登録ページに遷移させる
 @app.route('/register', methods=['GET', 'POST'])
