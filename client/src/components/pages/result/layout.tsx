@@ -1,5 +1,5 @@
 import { MusicData } from "../../parts/searchResult";
-import loadingIcon from "../../../../public/loading.gif";
+import loadingIcon from "../../../image/loading.gif";
 import styled from "styled-components";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { MusicCard } from "../../parts/musicCard";
