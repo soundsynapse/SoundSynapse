@@ -129,7 +129,14 @@ def save_track_to_database(track_info):
     artist_name = track_info['artists'][0]['name']  # 例として最初のアーティスト名を取得
     
     # データベースに新しいトラックを追加
-    new_track = Track(track_name=track_name, artist_name=artist_name, ...)
+    new_track = Track(
+    track_name=track_name,
+    artist_name=artist_name,
+    acousticness=0.75,  # 例: acousticnessの値を指定
+    danceability=0.80,  # 例: danceabilityの値を指定
+    duration_ms=300000,  # 例: duration_msの値を指定
+    # 他のトラック情報フィールド...
+)
     db.session.add(new_track)
     db.session.commit()
 
