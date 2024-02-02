@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from sklearn.metrics.pairwise import cosine_similarity
 import openai
 import os
-import return_artist as ra
+import requests
+import numpy as np
+import return_artist as ra  # return_artist.pyはSpotify APIを呼び出すためのコード
 
 app = Flask(__name__)
 
@@ -12,8 +15,8 @@ openai.api_key = ""
 # 秘密鍵の設定
 app.secret_key = os.urandom(24)
 
-# データベース設定
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://ramen:0203@localhost/musicdatabase')
+# データベース設定（SQLiteを使用する場合）
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///musicdatabase.db'  # musicdatabase.dbはデータベースファイル名
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -46,23 +49,18 @@ class Track(db.Model):
     time_signature=db.Column(db.Integer)
     type=db.Column(db.String)
     valence=db.Column(db.Float)
-    
+    embedding=db.Column(db.PickleType)  # ベクトルを保存するためのカラム
+
 class UserTrackSelection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'), nullable=False)
 
-# @app.before_first_request
-# def initialize_database():
-#     db.create_all()
-
-from flask import flash
-
 @app.route('/artist/<string:artist>')
 def return_name(artist):
     return ra.return_artist(artist)
 
-#登録ページに遷移させる
+# 登録ページに遷移させる
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -86,7 +84,7 @@ def register():
 
     return render_template('register.html')
 
-#ログイン処理
+# ログイン処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -105,23 +103,35 @@ def login():
 
 import requests
 
+# Spotify APIのエンドポイントと認証情報
+SPOTIFY_API_ENDPOINT = 'https://api.spotify.com/v1/your_endpoint_here'
+YOUR_ACCESS_TOKEN = 'your_access_token_here'
+
 def get_spotify_tracks():
-    # この関数はSpotify APIから曲情報を取得し、それをデータベースに保存します。
-    # Spotify APIの認証とエンドポイントの呼び出しに必要なロジックをここに実装します。
-    # 例:
-    # response = requests.get('SPOTIFY_API_ENDPOINT', headers={'Authorization': 'Bearer YOUR_ACCESS_TOKEN'})
-    # tracks = response.json()
-    # for track in tracks:
-    #     save_track_to_database(track)
-    pass
+    # Spotify APIから曲情報を取得し、それをデータベースに保存します。
+    
+    # Spotify APIエンドポイントへのリクエスト
+    headers = {'Authorization': f'Bearer {YOUR_ACCESS_TOKEN}'}
+    response = requests.get(SPOTIFY_API_ENDPOINT, headers=headers)
+
+    # レスポンスをJSON形式にパース
+    tracks = response.json()
+
+    # 各トラック情報をデータベースに保存
+    for track_info in tracks['items']:
+        save_track_to_database(track_info)
 
 def save_track_to_database(track_info):
-    # この関数は取得した曲情報をデータベースに保存します。
-    # 例:
-    # new_track = Track(track_name=track_info['name'], artist_name=track_info['artist'], ...)
-    # db.session.add(new_track)
-    # db.session.commit()
-    pass
+    # 取得した曲情報をデータベースに保存します。
+    
+    # 例: 曲情報から必要なフィールドを取得
+    track_name = track_info['name']
+    artist_name = track_info['artists'][0]['name']  # 例として最初のアーティスト名を取得
+    
+    # データベースに新しいトラックを追加
+    new_track = Track(track_name=track_name, artist_name=artist_name, ...)
+    db.session.add(new_track)
+    db.session.commit()
 
 @app.route('/select_track', methods=['POST'])
 def select_track():
@@ -160,9 +170,8 @@ def generate_embeddings():
     db.session.commit()
     return "ベクトル生成完了"
 
-SIMILARITY_THRESHOLD = 0.5 #ベクトルの閾値
+SIMILARITY_THRESHOLD = 0.5  # ベクトルの閾値
 
-from sklearn.metrics.pairwise import cosine_similarity
 @app.route('/find_similar_users', methods=['GET', 'POST'])
 def find_similar_users():
     current_user_id = session.get('user_id')
@@ -186,13 +195,12 @@ def find_similar_users():
         similarity = cosine_similarity(current_user_embeddings, user_embeddings)
         average_similarity = np.mean(similarity)
 
-        if average_similarity > SOME_THRESHOLD:  # 類似度の閾値を設定
+        if average_similarity > SIMILARITY_THRESHOLD:  # 類似度の閾値を設定
             similar_users.append({'user': user, 'similarity': average_similarity})
 
     # 類似度が高いユーザーとその選択した曲を返す
     similar_users = sorted(similar_users, key=lambda x: x['similarity'], reverse=True)
     return render_template('similar_users.html', similar_users=similar_users)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5005, debug=True)
