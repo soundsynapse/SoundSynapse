@@ -13,13 +13,13 @@ type SearchResultProps = {
 
 export const SearchResult = ({ searchResults, onClick }: SearchResultProps) => {
   return (
-    <>
+    <div className="search-results">
       {searchResults.map((result) => (
         <Text className="result-text" onClick={() => onClick(result)}>
           {result.name}
         </Text>
       ))}
-    </>
+    </div>
   );
 };
 

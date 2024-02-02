@@ -5,6 +5,7 @@ import { SearchButton } from "../../parts/searchButton";
 import { Button } from "../../parts/button";
 import { MusicCard } from "../../parts/musicCard";
 import styled from "styled-components";
+import { Pagination } from "../../parts/pagination";
 
 type RegisterLayoutProps = {
   onClickSearchButton: (value: string) => void;
@@ -19,11 +20,33 @@ export const RegisterLayout = ({
 }: RegisterLayoutProps) => {
   const [page, setPage] = useState<"user" | "music">("user");
   const [userName, setUserName] = useState("");
+  const [displayResult, setDisplayResult] = useState<MusicData[]>([]);
   const [selectedMusic, setSelectedMusic] = useState<MusicData[]>([]);
+  const [activePage, setActivePage] = useState(1);
   const ref = useRef<HTMLInputElement>(null);
+
+  const updateResult = (page: number, searchResult: MusicData[]) => {
+    const itemsPerPage = 10;
+
+    // ページの開始インデックス
+    const startIndex = (page - 1) * itemsPerPage;
+
+    // ページの終了インデックス
+    const endIndex = Math.min(startIndex + itemsPerPage, searchResult.length);
+
+    // 指定されたページの要素を抽出してsetDisplayResultにセット
+    setDisplayResult(searchResult.slice(startIndex, endIndex));
+  };
 
   return (
     <Wrapper>
+      {page === "music" && (
+        <Text>
+          お気に入りの曲を登録しよう♪
+          <br />
+          アーティスト名で検索してください♪
+        </Text>
+      )}
       <InputWrapper isMargin={page === "music"}>
         <Input type={page} ref={ref} />
         {page === "music" && (
@@ -32,9 +55,13 @@ export const RegisterLayout = ({
               if (selectedMusic.length === 3) {
                 alert("選択できる楽曲は3曲までです");
               } else {
-                ref.current?.value
-                  ? onClickSearchButton(ref.current.value)
-                  : alert("楽曲を入力してください");
+                if (ref.current?.value) {
+                  setDisplayResult([]);
+                  setActivePage(1);
+                  onClickSearchButton(ref.current.value);
+                } else {
+                  alert("アーティスト名を入力してください");
+                }
               }
             }}
           />
@@ -42,13 +69,33 @@ export const RegisterLayout = ({
       </InputWrapper>
       <div>
         <SearchResult
-          searchResults={searchResult}
+          searchResults={
+            displayResult.length === 0
+              ? searchResult.slice(0, 10)
+              : displayResult
+          }
           onClick={(selected) =>
             selectedMusic.length === 3
               ? alert("選択できる楽曲は3曲までです")
               : setSelectedMusic((prevState) => [...prevState, selected])
           }
         />
+        {searchResult.length > 10 && (
+          <PaginationWrapper>
+            <Pagination
+              page={
+                searchResult.length % 10 === 0
+                  ? searchResult.length / 10
+                  : Math.floor(searchResult.length / 10) + 1
+              }
+              onClick={(page) => {
+                updateResult(page, searchResult);
+                setActivePage(page);
+              }}
+              activePage={activePage}
+            />
+          </PaginationWrapper>
+        )}
       </div>
       <CardWrapper>
         {selectedMusic.map((item, index) => (
@@ -97,4 +144,16 @@ const CardWrapper = styled.div`
 `;
 const ButtonWrapper = styled.div`
   margin-left: auto;
+`;
+const Text = styled.p`
+  margin-bottom: -10px;
+  font-size: 24px;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+`;
+const PaginationWrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 `;

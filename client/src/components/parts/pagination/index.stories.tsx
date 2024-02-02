@@ -17,4 +17,6 @@ const Template: ComponentStory<typeof Pagination> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = {
   onClick: (page) => alert(page),
+  page: 20,
+  activePage: 3,
 };

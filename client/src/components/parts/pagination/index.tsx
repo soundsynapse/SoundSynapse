@@ -1,16 +1,20 @@
 import { Pagination as PaginationMUI } from "@mui/material";
+import { useState } from "react";
 import styled from "styled-components";
 
 type PaginationProps = {
   onClick: (page: number) => void;
+  page: number;
+  activePage: number;
 };
 
-export const Pagination = ({ onClick }: PaginationProps) => {
+export const Pagination = ({ onClick, page, activePage }: PaginationProps) => {
   return (
     <StyledPagination
       style={{ fontSize: "24px", color: "white" }}
-      count={10}
+      count={page}
       onChange={(e, page) => onClick(page)}
+      page={activePage}
     />
   );
 };

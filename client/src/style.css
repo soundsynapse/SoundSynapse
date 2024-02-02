@@ -12,3 +12,12 @@
 .music-text {
   font-family: "Noto Sans JP", sans-serif;
 }
+.search-results > .result-text:first-child {
+  border-top-right-radius: 24px;
+  border-top-left-radius: 24px;
+}
+
+.search-results > .result-text:last-child {
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
