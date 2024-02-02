@@ -11,9 +11,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <StyledInput
         type="text"
         className="input-text"
-        placeholder={`${
-          type === "user" ? "ユーザー名" : "好きな曲"
-        }を登録しよう♪`}
+        placeholder={
+          type === "user"
+            ? "ユーザー名を登録しよう♪"
+            : "好きなアーティストで検索しよう♪"
+        }
         ref={ref}
       />
     );
