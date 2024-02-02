@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button } from "../../parts/button";
-import humanIcon from "../../../../public/humanIcon.png";
+import humanIcon from "../../../image/humanIcon.png";
 
 type StartLayoutProps = {
   onClickStartButton: () => void;
