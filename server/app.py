@@ -68,7 +68,7 @@ def info_music(id):
     return result
 
 @app.route('/get_recommendations/<string:recommendations>')
-def get_recommendations():
+def get_recommendations(recommendations):
     # updated_data.jsonからデータを読み込む
     with open('updated_data.json', 'r', encoding='utf-8') as file:
         data = json.load(file)['data']
