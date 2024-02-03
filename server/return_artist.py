@@ -20,7 +20,7 @@ def return_artist(artist):
             tra_id_name.append(dict)
     return tra_id_name
 
-return_artist("zutomayo")
+return_artist("ztmy")
 #アーティスト名でsp.search
 #辞書型で渡されるので、その中のidを参照(同名アーティストがいたらまずい)
 
