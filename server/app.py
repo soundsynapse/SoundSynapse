@@ -56,6 +56,10 @@ class UserTrackSelection(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     track_id = db.Column(db.Integer, db.ForeignKey('track.id'), nullable=False)
 
+@app.route('/artist')
+def test():
+    return "hello,world!!"
+
 @app.route('/artist/<string:artist>')
 def return_name(artist):
     return ra.return_artist(artist)

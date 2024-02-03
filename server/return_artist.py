@@ -7,13 +7,27 @@ def return_artist(artist):
     client_secret = 'f5f882869d3547f3a52216216981bed7' 
     client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-    art_search=sp.search(artist,type='artist')
-    return art_search
+    art_name=artist
+    art_search = sp.search(art_name,type='artist')
+    art_id = art_search['artists']['items'][0]['id'] 
+    art_alb = sp.artist_albums(art_id, limit=50,album_type='album') 
+    alb_ids = [alb['id'] for alb in art_alb['items']] 
+    tra_id_name = []
+    for alb_id in alb_ids:
+        tracks = sp.album_tracks(alb_id, limit=50)["items"]
+        for track_num,track in enumerate(tracks):
+            dict = {'name':track["name"],'id':track["id"]}
+            tra_id_name.append(dict)
+    return tra_id_name
 
-# print('アーティスト名を入力')
-# art_name = input()
-# # print('曲名を入力')
-# # tra_name = input()
+return_artist("zutomayo")
+#アーティスト名でsp.search
+#辞書型で渡されるので、その中のidを参照(同名アーティストがいたらまずい)
+
+#アーティストidでアルバムを検索
+
+#alb_idsにアルバムのIDが最大50個格納されてる
+
 
 # art_search = sp.search(art_name,type='artist') 
 # #アーティスト名でsp.search
