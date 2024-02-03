@@ -23,7 +23,7 @@ def get_embedding(text, model="text-embedding-ada-002"):
 
 def load_and_update_data():
     # original_data.jsonからデータを読み込む
-    with open('original_data.json', 'r', encoding='utf-8') as file:
+    with open('updated_japanese_data.json', 'r', encoding='utf-8') as file:
         data = json.load(file)["data"]
 
     # ベクトルを生成してデータを更新
@@ -68,10 +68,6 @@ def info_music(id):
     #ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
     result=sp.audio_features(id)
     return result
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/recommendations', methods=['GET'])
 def get_recommendations():
