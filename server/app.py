@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import json
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -7,7 +7,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 app = Flask(__name__)
 
-api_key = "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"
+api_key = ""
 client = OpenAI(api_key=api_key)
 
 client_id = 'a6bd17dc6fb74c3fba04930d83b6bc94' 
