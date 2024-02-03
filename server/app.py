@@ -9,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-api_key = ""
+api_key = "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"
 client = OpenAI(api_key=api_key)
 
 client_id = 'a6bd17dc6fb74c3fba04930d83b6bc94' 
@@ -42,9 +42,9 @@ def load_and_update_data():
         json.dump({"data": updated_data}, file, ensure_ascii=False)
 
 #render_templateが定義されていいなくてエラー出るので一旦退避
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+     return render_template('index.html')
 
 app.json.ensure_ascii = False        # バージョンが最新
 
