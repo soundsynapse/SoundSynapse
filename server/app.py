@@ -61,8 +61,6 @@ def return_artist(artist):
         for track_num,track in enumerate(tracks):
             dict = {'name':track["name"],'id':track["id"]}
             tra_id_name.append(dict)
-    return tra_id_name
-
 @app.route('/info_music/<string:id>')
 def info_music(id):
     #ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
