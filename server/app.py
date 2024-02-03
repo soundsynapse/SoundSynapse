@@ -67,7 +67,7 @@ def info_music(id):
     result=sp.audio_features(id)
     return result
 
-@app.route('/recommendations<string:artist>')
+@app.route('/get_recommendations')
 def get_recommendations():
     # updated_data.jsonからデータを読み込む
     with open('updated_data.json', 'r', encoding='utf-8') as file:
