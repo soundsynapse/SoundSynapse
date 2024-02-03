@@ -5,20 +5,8 @@ services:
     build: .
     ports:
       - "5005:5005"
-    depends_on:
-      - db
-    environment:
-      - DATABASE_URL=postgresql://postgres:password@db/mydatabase
-
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-volumes:
-  postgres_data:
+      - ./original_data.json:/app/original_data.json
+      - ./updated_data.json:/app/updated_data.json
+    environment:
+      - OPENAI_API_KEY=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

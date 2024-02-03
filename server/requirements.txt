@@ -4,9 +4,10 @@ openai==0.28
 flask_sqlalchemy
 psycopg2-binary
 pandas
-numpy
-scikit-learn
+numpy==1.22.2
+scikit-learn==0.24.2
 google-generativeai
 spotipy 
 psycopg2 
 pyarrow 
+
