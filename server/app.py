@@ -67,6 +67,10 @@ def info_music(id):
     result=sp.audio_features(id)
     return result
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/recommendations', methods=['GET'])
 def get_recommendations():
     # updated_data.jsonからデータを読み込む
