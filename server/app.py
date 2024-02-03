@@ -44,7 +44,7 @@ def load_and_update_data():
 # def index():
 #     return render_template('index.html')
 
-@app.route('/aritcle/<string:artist>')
+@app.route('/artist/<string:artist>')
 def return_artist(artist):
     art_name=artist
     art_search = sp.search(art_name,type='artist')
