@@ -44,6 +44,8 @@ def load_and_update_data():
 # def index():
 #     return render_template('index.html')
 
+app.json.ensure_ascii = False        # バージョンが最新
+
 @app.route('/artist/<string:artist>')
 def return_artist(artist):
     art_name=artist
