@@ -59,6 +59,12 @@ def return_artist(artist):
             tra_id_name.append(dict)
     return tra_id_name
 
+@app.route('/info_music/<string:id>')
+def info_music(id):
+    #ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
+    result=sp.audio_features(id)
+    return result
+
 @app.route('/recommendations', methods=['GET'])
 def get_recommendations():
     # updated_data.jsonからデータを読み込む
