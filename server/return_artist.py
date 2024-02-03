@@ -1,6 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import pprint
+
 
 def return_artist(artist):
     client_id = 'a6bd17dc6fb74c3fba04930d83b6bc94' 
