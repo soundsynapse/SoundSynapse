@@ -33,6 +33,10 @@ def load_and_update_data():
     with open('updated_data.json', 'w', encoding='utf-8') as file:
         json.dump({"data": updated_data}, file, ensure_ascii=False)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/recommendations', methods=['GET'])
 def get_recommendations():
     # updated_data.jsonからデータを読み込む
