@@ -5,7 +5,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from openai import OpenAI
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 api_key = ""
 client = OpenAI(api_key=api_key)

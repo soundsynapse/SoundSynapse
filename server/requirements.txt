@@ -10,4 +10,4 @@ google-generativeai
 spotipy 
 psycopg2 
 pyarrow 
-
+flask_cors
