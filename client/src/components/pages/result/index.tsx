@@ -14,7 +14,7 @@ export const Result = () => {
 
   return (
     <ResultLayout
-      name={"ユーザーA"}
+      name={"かずとも"}
       likeMusic={[
         {
           id: "4LjIQmt1t6NjpM0tpttzjo",

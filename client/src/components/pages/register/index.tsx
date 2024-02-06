@@ -34,9 +34,6 @@ export const Register = () => {
   return (
     <RegisterLayout
       onClickNextButton={(userName, selectedMusic) => {
-        alert(
-          `ユーザー名 : ${userName}, 楽曲 : ${JSON.stringify(selectedMusic)}`
-        );
         navigate("/result");
       }}
       onClickSearchButton={async (value) => await onSearch(value)}
