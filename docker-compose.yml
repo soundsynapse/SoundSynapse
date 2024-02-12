@@ -2,14 +2,12 @@ version: '3'
 
 services:
   client:
-    build: .
+    build: client/
     ports:
-      - "5000:5000"
-    depends_on:
-      - db
+      - "5005:5005"
     environment:
       - DATABASE_URL=postgresql://postgres:password@db/mydatabase
   server:
-    build: ./server/
+    build: server/
     ports:
-      - "8000:8000"
+      - "3000:3000"
