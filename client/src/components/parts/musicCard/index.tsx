@@ -8,6 +8,7 @@ export const MusicCard = ({ id }: MusicCardProps) => {
   return (
     <Wrapper>
       <iframe
+        title={'test'}
         src={`https://open.spotify.com/embed/track/${id}?utm_source=generator`}
         width="300"
         height="200"
