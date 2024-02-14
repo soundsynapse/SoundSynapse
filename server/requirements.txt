@@ -11,3 +11,4 @@ spotipy
 psycopg2 
 pyarrow 
 flask_cors
+python-dotenv

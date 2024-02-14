@@ -6,15 +6,17 @@ from openai import OpenAI
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from flask_cors import CORS
+from dotenv import load_dotenv
 import os
+load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-api_key = os.environ.get("OPEN_AI_KEY")
+api_key = os.environ["OPEN_AI_KEY"]
 client = OpenAI(api_key=api_key)
 
-client_id = os.environ.get("SP_CLI_KEY") 
-client_secret = os.environ.get("SP_SCR_KEY")
+client_id = os.environ["SP_CLI_KEY"]
+client_secret = os.environ["SP_SCR_KEY"]    
 client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
