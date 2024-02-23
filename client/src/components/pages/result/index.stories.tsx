@@ -3,7 +3,6 @@ import { ComponentStory } from "@storybook/react";
 import { ResultLayout } from "./layout";
 import { Frame } from "../../parts/frame";
 import { useEffect, useState } from "react";
-import { MusicData } from "../../parts/searchResult";
 
 export default {
   title: "pages/Result",

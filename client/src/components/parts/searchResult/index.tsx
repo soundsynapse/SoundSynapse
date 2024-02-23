@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import "../../../style.css";
 
-export type MusicData = {
+export type Data = {
   id: string;
   name: string;
 };
 
 type SearchResultProps = {
-  searchResults: MusicData[];
-  onClick: (selectedMusic: MusicData) => void;
+  searchResults: Data[];
+  onClick: (selectedMusic: Data) => void;
 };
 
 export const SearchResult = ({ searchResults, onClick }: SearchResultProps) => {

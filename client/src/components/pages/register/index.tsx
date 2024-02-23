@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { RegisterLayout } from "./layout";
-import { MusicData } from "../../parts/searchResult";
+import { Data } from "../../parts/searchResult";
 import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   const navigate = useNavigate();
 
   const getMusic = async (searchWord: string) => {

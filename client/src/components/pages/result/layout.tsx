@@ -1,4 +1,4 @@
-import { MusicData } from "../../parts/searchResult";
+import { Data } from "../../parts/searchResult";
 import loadingIcon from "../../../image/loading.gif";
 import styled from "styled-components";
 import { HiOutlineUserCircle } from "react-icons/hi2";
@@ -6,7 +6,7 @@ import { MusicCard } from "../../parts/musicCard";
 
 type ResultLayoutProps = {
   name: string;
-  likeMusic: MusicData[];
+  likeMusic: Data[];
   isLoading: boolean;
 };
 

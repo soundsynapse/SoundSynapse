@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { MusicData, SearchResult } from "../../parts/searchResult";
+import { Data, SearchResult } from "../../parts/searchResult";
 import { Input } from "../../parts/input";
 import { SearchButton } from "../../parts/searchButton";
 import { Button } from "../../parts/button";
@@ -9,8 +9,8 @@ import { Pagination } from "../../parts/pagination";
 
 type RegisterLayoutProps = {
   onClickSearchButton: (value: string) => void;
-  searchResult: MusicData[];
-  onClickNextButton: (userName: string, selectedMusic: MusicData[]) => void;
+  searchResult: Data[];
+  onClickNextButton: (userName: string, selectedMusic: Data[]) => void;
 };
 
 export const RegisterLayout = ({
@@ -20,12 +20,12 @@ export const RegisterLayout = ({
 }: RegisterLayoutProps) => {
   const [page, setPage] = useState<"user" | "music">("user");
   const [userName, setUserName] = useState("");
-  const [displayResult, setDisplayResult] = useState<MusicData[]>([]);
-  const [selectedMusic, setSelectedMusic] = useState<MusicData[]>([]);
+  const [displayResult, setDisplayResult] = useState<Data[]>([]);
+  const [selectedMusic, setSelectedMusic] = useState<Data[]>([]);
   const [activePage, setActivePage] = useState(1);
   const ref = useRef<HTMLInputElement>(null);
 
-  const updateResult = (page: number, searchResult: MusicData[]) => {
+  const updateResult = (page: number, searchResult: Data[]) => {
     const itemsPerPage = 10;
 
     // ページの開始インデックス

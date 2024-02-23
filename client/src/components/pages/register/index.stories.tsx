@@ -3,7 +3,7 @@ import { ComponentStory } from "@storybook/react";
 import { RegisterLayout } from "./layout";
 import { Frame } from "../../parts/frame";
 import { useState } from "react";
-import { MusicData } from "../../parts/searchResult";
+import { Data } from "../../parts/searchResult";
 
 export default {
   title: "pages/Register",
@@ -11,7 +11,7 @@ export default {
 };
 
 export const Template = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   return (
     <Frame>
       <RegisterLayout
@@ -132,7 +132,7 @@ export const Template = () => {
 };
 
 export const Twenty = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   return (
     <Frame>
       <RegisterLayout
@@ -233,7 +233,7 @@ export const Twenty = () => {
 };
 
 export const NonPagination = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   return (
     <Frame>
       <RegisterLayout
