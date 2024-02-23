@@ -40,6 +40,7 @@ export const Template = () => {
         ]}
         isLoading={isLoading}
         onClickBackButton={() => alert("楽曲登録画面に遷移")}
+        xId="geek_pjt"
       />
     </Frame>
   );

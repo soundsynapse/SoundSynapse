@@ -9,6 +9,7 @@ type ResultLayoutProps = {
   name: string;
   likeMusic: Data[];
   isLoading: boolean;
+  xId: string;
   onClickBackButton: () => void;
 };
 
@@ -16,6 +17,7 @@ export const ResultLayout = ({
   name,
   likeMusic,
   isLoading,
+  xId,
   onClickBackButton,
 }: ResultLayoutProps) => {
   return (
@@ -42,7 +44,7 @@ export const ResultLayout = ({
           </MusicWrapper>
           <Text>{name}さんと会話を始めましょう♪</Text>
           <ButtonWrapper>
-            <a href="https://twitter.com/geek_pjt">
+            <a href={`https://twitter.com/${xId}`}>
               <Button
                 text={`${name}さんをフォローする`}
                 color="pink"
