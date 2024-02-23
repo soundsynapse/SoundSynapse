@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RegisterLayout } from "./layout";
+import { MusicRegisterLayout } from "./layout";
 import { Data } from "../../parts/searchResult";
 import { useNavigate } from "react-router-dom";
 
@@ -32,8 +32,8 @@ export const Register = () => {
   };
 
   return (
-    <RegisterLayout
-      onClickNextButton={(userName, selectedMusic) => {
+    <MusicRegisterLayout
+      onClickNextButton={(selectedMusic) => {
         navigate("/result");
       }}
       onClickSearchButton={async (value) => await onSearch(value)}

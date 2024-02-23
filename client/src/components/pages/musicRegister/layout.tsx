@@ -6,23 +6,25 @@ import { Button } from "../../parts/button";
 import { MusicCard } from "../../parts/musicCard";
 import styled from "styled-components";
 import { Pagination } from "../../parts/pagination";
+import { Modal } from "../../parts/modal";
 
-type RegisterLayoutProps = {
+type MusicRegisterLayoutProps = {
   onClickSearchButton: (value: string) => void;
   searchResult: Data[];
-  onClickNextButton: (userName: string, selectedMusic: Data[]) => void;
+  onClickNextButton: (selectedMusic: Data[]) => void;
 };
 
-export const RegisterLayout = ({
+export const MusicRegisterLayout = ({
   onClickNextButton,
   onClickSearchButton,
   searchResult,
-}: RegisterLayoutProps) => {
-  const [page, setPage] = useState<"event" | "music">("event");
-  const [userName, setUserName] = useState("");
+}: MusicRegisterLayoutProps) => {
   const [displayResult, setDisplayResult] = useState<Data[]>([]);
   const [selectedMusic, setSelectedMusic] = useState<Data[]>([]);
   const [activePage, setActivePage] = useState(1);
+  const [modal, setModal] = useState<
+    "input" | "music" | "nonMusic" | "confirm" | null
+  >(null);
   const ref = useRef<HTMLInputElement>(null);
 
   const updateResult = (page: number, searchResult: Data[]) => {
@@ -40,32 +42,28 @@ export const RegisterLayout = ({
 
   return (
     <Wrapper>
-      {page === "music" && (
-        <Text>
-          お気に入りの曲を登録しよう♪
-          <br />
-          アーティスト名で検索してください♪
-        </Text>
-      )}
-      <InputWrapper isMargin={page === "music"}>
-        <Input type={page} ref={ref} />
-        {page === "music" && (
-          <SearchButton
-            onClick={() => {
-              if (selectedMusic.length === 3) {
-                alert("選択できる楽曲は3曲までです");
+      <Text>
+        お気に入りの曲を登録しよう♪
+        <br />
+        アーティスト名で検索してください♪
+      </Text>
+      <InputWrapper>
+        <Input type="music" ref={ref} />
+        <SearchButton
+          onClick={() => {
+            if (selectedMusic.length === 3) {
+              setModal("music");
+            } else {
+              if (ref.current?.value) {
+                setDisplayResult([]);
+                setActivePage(1);
+                onClickSearchButton(ref.current.value);
               } else {
-                if (ref.current?.value) {
-                  setDisplayResult([]);
-                  setActivePage(1);
-                  onClickSearchButton(ref.current.value);
-                } else {
-                  alert("アーティスト名を入力してください");
-                }
+                setModal("input");
               }
-            }}
-          />
-        )}
+            }
+          }}
+        />
       </InputWrapper>
       <div>
         <SearchResult
@@ -76,7 +74,7 @@ export const RegisterLayout = ({
           }
           onClick={(selected) =>
             selectedMusic.length === 3
-              ? alert("選択できる楽曲は3曲までです")
+              ? setModal("music")
               : setSelectedMusic((prevState) => [...prevState, selected])
           }
         />
@@ -107,22 +105,33 @@ export const RegisterLayout = ({
           text={"次へ"}
           color={"pink"}
           onClick={() => {
-            if (page === "event") {
-              if (ref.current?.value) {
-                setUserName(ref.current.value);
-                ref.current.value = "";
-                setPage("music");
-              } else {
-                alert("ユーザー名を入力してください");
-              }
-            } else {
-              selectedMusic.length === 0
-                ? alert("楽曲を登録してください")
-                : onClickNextButton(userName, selectedMusic);
-            }
+            selectedMusic.length === 0
+              ? setModal("nonMusic")
+              : setModal("confirm");
           }}
         />
       </ButtonWrapper>
+      {modal && (
+        <Modal
+          text={
+            modal === "input"
+              ? "アーティスト名を入力してください"
+              : modal === "music"
+              ? "登録できる楽曲は3曲までです"
+              : modal === "nonMusic"
+              ? "楽曲を登録してください"
+              : `${selectedMusic.map(
+                  (music) => `「${music.name}」`
+                )}を登録します、よろしいでしょうか`
+          }
+          onClickBackButton={() => setModal(null)}
+          onClickNextButton={
+            modal === "confirm"
+              ? () => onClickNextButton(selectedMusic)
+              : undefined
+          }
+        />
+      )}
     </Wrapper>
   );
 };
@@ -133,10 +142,10 @@ const Wrapper = styled.div`
   justify-items: center;
   gap: 30px;
 `;
-const InputWrapper = styled.div<{ isMargin: boolean }>`
+const InputWrapper = styled.div`
   display: flex;
   gap: 20px;
-  ${({ isMargin }) => isMargin && "margin-left: 70px"}
+  margin-left: 70px;
 `;
 const CardWrapper = styled.div`
   display: flex;
