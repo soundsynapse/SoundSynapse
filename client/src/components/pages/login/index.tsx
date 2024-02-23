@@ -16,6 +16,7 @@ export const LoginView = () => {
       mode: "cors",
     });
     const result = await res.json();
+    alert("認証し、その後ユーザー名とユーザーidを取得する");
 
     // setUser(result)
     setUser({

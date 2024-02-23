@@ -106,6 +106,7 @@ export const EventList = () => {
       mode: "cors",
     });
     const result = await res.json();
+    alert("イベント一覧を取得");
     // setEvent(result)
     setEvent(sampleEvent);
   };
