@@ -113,31 +113,31 @@ export const MusicRegister = () => {
   const navigate = useNavigate();
 
   const getMusic = async (searchWord: string) => {
-    const res = await fetch(
-      `https://soundsynapse.onrender.com/artist/${searchWord}`,
-      {
-        method: "GET",
-        mode: "cors",
-      }
-    );
-    const result = await res.json();
-    const resultItems: any = result;
+    // const res = await fetch(
+    //   `https://soundsynapse.onrender.com/artist/${searchWord}`,
+    //   {
+    //     method: "GET",
+    //     mode: "cors",
+    //   }
+    // );
+    // const result = await res.json();
+    // const resultItems: any = result;
     alert(`${searchWord}で検索`);
-    return resultItems;
+    return sampleData;
   };
 
   const onSearch = async (searchWord: string) => {
     const searchResult = await getMusic(searchWord);
     if (!searchResult) return;
     // setSearchResult(searchResult);
-    setSearchResult(sampleData);
+    setSearchResult(searchResult);
   };
 
   const registerMusic = async (selectedMusic: Data[]) => {
-    await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-      method: "POST",
-      mode: "cors",
-    });
+    // await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
+    //   method: "POST",
+    //   mode: "cors",
+    // });
     alert(
       `「楽曲 : ${JSON.stringify(
         selectedMusic

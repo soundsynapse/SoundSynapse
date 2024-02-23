@@ -11,11 +11,11 @@ export const LoginView = () => {
 
   const onAuth = async () => {
     // 認証し、完了後ユーザー名とユーザーidを格納
-    const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const result = await res.json();
+    // const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
+    //   method: "GET",
+    //   mode: "cors",
+    // });
+    // const result = await res.json();
     alert("認証し、その後ユーザー名とユーザーidを取得する");
 
     // setUser(result)

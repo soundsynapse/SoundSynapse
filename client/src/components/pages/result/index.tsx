@@ -21,11 +21,11 @@ export const Result = () => {
   const navigate = useNavigate();
 
   const getResult = async () => {
-    const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const result = await res.json();
+    // const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
+    //   method: "GET",
+    //   mode: "cors",
+    // });
+    // const result = await res.json();
     alert(
       `ユーザーid : ${userId}, イベントid: ${eventId}でマッチングAPIを叩く`
     );

@@ -4,10 +4,10 @@ import { EventRegisterLayout } from "./layout";
 export const EventRegister = () => {
   const navigate = useNavigate();
   const registerEvent = async (name: string) => {
-    await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-      method: "POST",
-      mode: "cors",
-    });
+    // await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
+    //   method: "POST",
+    //   mode: "cors",
+    // });
     alert(`${name}をイベントAPIに投げる`);
     navigate("/event-list");
   };

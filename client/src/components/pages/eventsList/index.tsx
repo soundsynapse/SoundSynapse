@@ -101,11 +101,11 @@ export const EventList = () => {
   const [event, setEvent] = useState<Data[]>([]);
 
   const getEvent = async () => {
-    const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-      method: "GET",
-      mode: "cors",
-    });
-    const result = await res.json();
+    // const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
+    //   method: "GET",
+    //   mode: "cors",
+    // });
+    // const result = await res.json();
     alert("イベント一覧を取得");
     // setEvent(result)
     setEvent(sampleEvent);
