@@ -10,7 +10,7 @@ export const MusicRegister = () => {
   const getMusic = async (searchWord: string) => {
     // try {
     const res = await fetch(
-      `https://geek-m74g.onrender.com/artist/${searchWord}`,
+      `https://soundsynapse.onrender.com/artist/${searchWord}`,
       {
         method: "GET",
         mode: "cors",
