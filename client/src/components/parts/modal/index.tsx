@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 type ModalProps = {
   text: string;
+  nextButtonText?: string;
   onClickBackButton: () => void;
   onClickNextButton?: () => void;
 };
 
 export const Modal = ({
   text,
+  nextButtonText = "登録する",
   onClickBackButton,
   onClickNextButton,
 }: ModalProps) => {
@@ -21,7 +23,7 @@ export const Modal = ({
           </StyledButton>
           {onClickNextButton && (
             <StyledButton color="pink" onClick={onClickNextButton}>
-              登録する
+              {nextButtonText}
             </StyledButton>
           )}
         </ButtonWrapper>
