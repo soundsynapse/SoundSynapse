@@ -18,14 +18,24 @@ const Template: ComponentStory<typeof MusicCard> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = {
   id: "4LjIQmt1t6NjpM0tpttzjo",
+  onClickCancel: () => alert("楽曲取り消し"),
 };
 
 const MultiTemplate: ComponentStory<typeof MusicCard> = () => (
   <Frame>
     <Wrapper>
-      <MusicCard id={"4LjIQmt1t6NjpM0tpttzjo"} />
-      <MusicCard id={"4LjIQmt1t6NjpM0tpttzjo"} />
-      <MusicCard id={"4LjIQmt1t6NjpM0tpttzjo"} />
+      <MusicCard
+        id={"4LjIQmt1t6NjpM0tpttzjo"}
+        onClickCancel={() => alert("楽曲取り消し")}
+      />
+      <MusicCard
+        id={"4LjIQmt1t6NjpM0tpttzjo"}
+        onClickCancel={() => alert("楽曲取り消し")}
+      />
+      <MusicCard
+        id={"4LjIQmt1t6NjpM0tpttzjo"}
+        onClickCancel={() => alert("楽曲取り消し")}
+      />
     </Wrapper>
   </Frame>
 );

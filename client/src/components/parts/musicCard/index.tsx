@@ -1,14 +1,21 @@
 import styled from "styled-components";
+import { MdCancel } from "react-icons/md";
 
 type MusicCardProps = {
   id: string;
+  onClickCancel?: () => void;
 };
 
-export const MusicCard = ({ id }: MusicCardProps) => {
+export const MusicCard = ({ id, onClickCancel }: MusicCardProps) => {
   return (
     <Wrapper>
+      {onClickCancel && (
+        <IconWrapper onClick={onClickCancel}>
+          <MdCancel size={35} />
+        </IconWrapper>
+      )}
       <iframe
-        title={'test'}
+        title={"test"}
         src={`https://open.spotify.com/embed/track/${id}?utm_source=generator`}
         width="300"
         height="200"
@@ -25,4 +32,11 @@ const Wrapper = styled.div`
   padding: 10px;
   height: 150px;
   width: 300px;
+  position: relative;
+`;
+const IconWrapper = styled.div`
+  cursor: pointer;
+  position: absolute;
+  left: 295px;
+  top: -10px;
 `;

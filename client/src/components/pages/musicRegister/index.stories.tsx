@@ -1,23 +1,25 @@
 import { ComponentStory } from "@storybook/react";
 
-import { RegisterLayout } from "./layout";
+import { MusicRegisterLayout } from "./layout";
 import { Frame } from "../../parts/frame";
 import { useState } from "react";
-import { MusicData } from "../../parts/searchResult";
+import { Data } from "../../parts/searchResult";
 
 export default {
-  title: "pages/Register",
-  component: RegisterLayout,
+  title: "pages/MusicRegister",
+  component: MusicRegisterLayout,
 };
 
 export const Template = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   return (
     <Frame>
-      <RegisterLayout
-        onClickNextButton={(userName, selectedMusic) =>
+      <MusicRegisterLayout
+        onClickNextButton={(selectedMusic) =>
           alert(
-            `ユーザー名 : ${userName}, 楽曲 : ${JSON.stringify(selectedMusic)}`
+            `ユーザーid : 1111, 楽曲 : ${JSON.stringify(
+              selectedMusic
+            )}, イベントid: 1234をユーザーAPIに送信し、結果画面に遷移`
           )
         }
         onClickSearchButton={(value) => {
@@ -132,13 +134,15 @@ export const Template = () => {
 };
 
 export const Twenty = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   return (
     <Frame>
-      <RegisterLayout
-        onClickNextButton={(userName, selectedMusic) =>
+      <MusicRegisterLayout
+        onClickNextButton={(selectedMusic) =>
           alert(
-            `ユーザー名 : ${userName}, 楽曲 : ${JSON.stringify(selectedMusic)}`
+            `ユーザーid : 1111, 楽曲 : ${JSON.stringify(
+              selectedMusic
+            )}, イベントid: 1234をユーザーAPIに送信し、結果画面に遷移`
           )
         }
         onClickSearchButton={(value) => {
@@ -233,13 +237,15 @@ export const Twenty = () => {
 };
 
 export const NonPagination = () => {
-  const [searchResult, setSearchResult] = useState<MusicData[]>([]);
+  const [searchResult, setSearchResult] = useState<Data[]>([]);
   return (
     <Frame>
-      <RegisterLayout
-        onClickNextButton={(userName, selectedMusic) =>
+      <MusicRegisterLayout
+        onClickNextButton={(selectedMusic) =>
           alert(
-            `ユーザー名 : ${userName}, 楽曲 : ${JSON.stringify(selectedMusic)}`
+            `ユーザーid : 1111, 楽曲 : ${JSON.stringify(
+              selectedMusic
+            )}, イベントid: 1234をユーザーAPIに送信し、結果画面に遷移`
           )
         }
         onClickSearchButton={(value) => {

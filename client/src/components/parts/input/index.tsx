@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import styled from "styled-components";
 
 type InputProps = {
-  type: "user" | "music";
+  type: "event" | "music";
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -12,8 +12,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         type="text"
         className="input-text"
         placeholder={
-          type === "user"
-            ? "ユーザー名を登録しよう♪"
+          type === "event"
+            ? "イベントを登録しよう♪"
             : "好きなアーティストで検索しよう♪"
         }
         ref={ref}
