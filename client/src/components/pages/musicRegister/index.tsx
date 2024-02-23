@@ -8,7 +8,6 @@ export const MusicRegister = () => {
   const navigate = useNavigate();
 
   const getMusic = async (searchWord: string) => {
-    // try {
     const res = await fetch(
       `https://soundsynapse.onrender.com/artist/${searchWord}`,
       {
@@ -20,9 +19,6 @@ export const MusicRegister = () => {
     const resultItems: any = result;
     console.log(result);
     return resultItems;
-    //} catch (error) {
-    //  alert(error);
-    //}
   };
 
   const onSearch = async (searchWord: string) => {

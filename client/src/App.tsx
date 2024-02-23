@@ -4,6 +4,8 @@ import { Result } from "./components/pages/result";
 import { Start } from "./components/pages/start";
 import { Frame } from "./components/parts/frame";
 import { Routes, Route } from "react-router-dom";
+import { EventList } from "./components/pages/eventsList";
+import { EventRegister } from "./components/pages/eventRegister";
 
 type UserDataType = {
   eventId: string;
@@ -37,6 +39,8 @@ function App() {
       <Frame>
         <Routes>
           <Route path="/" element={<Start />} />
+          <Route path="/event-list" element={<EventList />} />
+          <Route path="/event-register" element={<EventRegister />} />
           <Route path="/register" element={<MusicRegister />} />
           <Route path="/result" element={<Result />} />
         </Routes>
