@@ -97,7 +97,15 @@ export const MusicRegisterLayout = ({
       </div>
       <CardWrapper>
         {selectedMusic.map((item, index) => (
-          <MusicCard id={item.id} key={index} />
+          <MusicCard
+            id={item.id}
+            key={index}
+            onClickCancel={() => {
+              setSelectedMusic((prevSelectedMusic) =>
+                prevSelectedMusic.filter((_, idx) => idx !== index)
+              );
+            }}
+          />
         ))}
       </CardWrapper>
       <ButtonWrapper>
