@@ -11,7 +11,7 @@ export const Template = () => {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <Frame>
-      <Input type={"user"} ref={ref} />
+      <Input type={"event"} ref={ref} />
       <button onClick={() => alert(ref.current?.value)}>送信</button>
     </Frame>
   );

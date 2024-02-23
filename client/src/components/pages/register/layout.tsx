@@ -18,7 +18,7 @@ export const RegisterLayout = ({
   onClickSearchButton,
   searchResult,
 }: RegisterLayoutProps) => {
-  const [page, setPage] = useState<"user" | "music">("user");
+  const [page, setPage] = useState<"event" | "music">("event");
   const [userName, setUserName] = useState("");
   const [displayResult, setDisplayResult] = useState<Data[]>([]);
   const [selectedMusic, setSelectedMusic] = useState<Data[]>([]);
@@ -107,7 +107,7 @@ export const RegisterLayout = ({
           text={"次へ"}
           color={"pink"}
           onClick={() => {
-            if (page === "user") {
+            if (page === "event") {
               if (ref.current?.value) {
                 setUserName(ref.current.value);
                 ref.current.value = "";
