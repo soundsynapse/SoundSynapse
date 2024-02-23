@@ -7,7 +7,3 @@ services:
       - DATABASE_URL=postgresql://postgres:password@db/mydatabase
     ports:
       - "5005:5005"
-  client:
-    build: client/
-    ports:
-      - "3000:3000"
