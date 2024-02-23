@@ -25,7 +25,7 @@ export const Template = () => {
             id: "1111",
           });
         }}
-        onClickBackButton={() => alert("認証画面に遷移")}
+        onClickBackButton={() => alert("イベント一覧画面に遷移")}
         onClickNextButton={(user) =>
           alert(
             `${JSON.stringify(user)}をGlobalStateに格納し、楽曲登録画面に遷移`

@@ -6,6 +6,7 @@ import { Frame } from "./components/parts/frame";
 import { Routes, Route } from "react-router-dom";
 import { EventList } from "./components/pages/eventsList";
 import { EventRegister } from "./components/pages/eventRegister";
+import { LoginView } from "./components/pages/login";
 
 type UserDataType = {
   eventId: string;
@@ -41,7 +42,8 @@ function App() {
           <Route path="/" element={<Start />} />
           <Route path="/event-list" element={<EventList />} />
           <Route path="/event-register" element={<EventRegister />} />
-          <Route path="/register" element={<MusicRegister />} />
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/music-register" element={<MusicRegister />} />
           <Route path="/result" element={<Result />} />
         </Routes>
       </Frame>
