@@ -15,7 +15,7 @@ export const Modal = ({
     <BackGround>
       <Wrapper>
         <Text>{text}</Text>
-        <ButtonWrapper twoButton={Boolean(onClickNextButton)}>
+        <ButtonWrapper twoButton={onClickNextButton ? true : false}>
           <StyledButton color="blue" onClick={onClickBackButton}>
             {onClickNextButton ? "キャンセル" : "戻る"}
           </StyledButton>

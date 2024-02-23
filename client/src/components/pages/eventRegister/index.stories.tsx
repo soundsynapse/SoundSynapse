@@ -13,7 +13,9 @@ export const Template = () => {
     <Frame>
       <EventRegisterLayout
         onClickBackButton={() => alert("イベント一覧画面に遷移")}
-        onClickRegisterButton={(name) => alert(`${name}を登録`)}
+        onClickRegisterButton={(name) =>
+          alert(`${name}を登録し、イベント一覧画面に遷移`)
+        }
       />
     </Frame>
   );
