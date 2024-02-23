@@ -3,17 +3,20 @@ import loadingIcon from "../../../image/loading.gif";
 import styled from "styled-components";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { MusicCard } from "../../parts/musicCard";
+import { Button } from "../../parts/button";
 
 type ResultLayoutProps = {
   name: string;
   likeMusic: Data[];
   isLoading: boolean;
+  onClickBackButton: () => void;
 };
 
 export const ResultLayout = ({
   name,
   likeMusic,
   isLoading,
+  onClickBackButton,
 }: ResultLayoutProps) => {
   return (
     <>
@@ -37,6 +40,21 @@ export const ResultLayout = ({
               <MusicCard id={item.id} key={index} />
             ))}
           </MusicWrapper>
+          <Text>{name}さんと会話を始めましょう♪</Text>
+          <ButtonWrapper>
+            <a href="https://twitter.com/geek_pjt">
+              <Button
+                text={`${name}さんをフォローする`}
+                color="pink"
+                onClick={() => console.log("")}
+              />
+            </a>
+            <Button
+              text={"もう一度やり直す"}
+              color="blue"
+              onClick={onClickBackButton}
+            />
+          </ButtonWrapper>
         </>
       )}
     </>
@@ -57,6 +75,7 @@ const Text = styled.h2`
   font-weight: 700;
   color: white;
   text-align: center;
+  margin-bottom: 30px;
 `;
 const MusicText = styled.p`
   margin: 30px 0;
@@ -69,4 +88,10 @@ const MusicWrapper = styled.div`
   display: flex;
   gap: 20px;
   justify-content: center;
+  margin-bottom: 50px;
+`;
+const ButtonWrapper = styled.div`
+  display: grid;
+  justify-items: center;
+  gap: 30px;
 `;

@@ -3,7 +3,7 @@ import { MusicRegisterLayout } from "./layout";
 import { Data } from "../../parts/searchResult";
 import { useNavigate } from "react-router-dom";
 
-export const Register = () => {
+export const MusicRegister = () => {
   const [searchResult, setSearchResult] = useState<Data[]>([]);
   const navigate = useNavigate();
 

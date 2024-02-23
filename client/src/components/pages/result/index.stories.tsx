@@ -23,7 +23,7 @@ export const Template = () => {
   return (
     <Frame>
       <ResultLayout
-        name={"ユーザーA"}
+        name={"【公式】技育プロジェクト"}
         likeMusic={[
           {
             id: "4LjIQmt1t6NjpM0tpttzjo",
@@ -39,6 +39,7 @@ export const Template = () => {
           },
         ]}
         isLoading={isLoading}
+        onClickBackButton={() => alert("楽曲登録画面に遷移")}
       />
     </Frame>
   );

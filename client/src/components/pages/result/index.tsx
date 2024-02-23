@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { ResultLayout } from "./layout";
+import { useNavigate } from "react-router-dom";
 
 export const Result = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -14,7 +16,7 @@ export const Result = () => {
 
   return (
     <ResultLayout
-      name={"かずとも"}
+      name={"【公式】技育プロジェクト"}
       likeMusic={[
         {
           id: "4LjIQmt1t6NjpM0tpttzjo",
@@ -30,6 +32,9 @@ export const Result = () => {
         },
       ]}
       isLoading={isLoading}
+      onClickBackButton={function (): void {
+        throw new Error("Function not implemented.");
+      }}
     />
   );
 };
