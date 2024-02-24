@@ -8,21 +8,53 @@ app.json.ensure_ascii = False
 
 app.config.from_mapping(
     SECRET_KEY="dev",
-    DATABASE=os.environ["DATABASE_URL"],
+    DB=os.environ["DATABASE_URL"],
 )
+
 
 # from feature import db
 # db.init_db()
 # from feature import auth
 # app.register_blueprint(auth.bp)
 
+from feature import test
+
+
+# def get_db():
+#     if not hasattr(g,"pg_conn"):
+#         g.pg_conn = psycopg2.connect(
+#             database_url
+#         )
+#     return g.pg_conn
 
 @app.route("/")
 def hello():
-    return "init-db()"
+    return "Hello World!"
+# @app.route('/')
+# def hello_world():
+#     conn=db.get_db()
+#     cursor=conn.cursor()
 
+#     cursor.execute('CREATE TABLE IF NOT EXISTS visits (visited_on TIMESTAMP)')
+#     conn.commit()
 
-from feature import test
+#     return 'CREATE TABLE!'
+
+# @app.route('/visit')
+# def visit():
+#     conn=db.get_db()
+#     cursor=conn.cursor()
+
+#     cursor.execute('INSERT INTO visits VALUES (NOW())')
+#     conn.commit()
+
+#     cursor.execute('SELECT * FROM visits')
+
+#     row=cursor.fetchall()
+#     result=','.join([str(r) for r in row])
+    
+#     return 'DataBase content:'+result
+
 
 app.register_blueprint(test.app)
 
