@@ -1,4 +1,4 @@
-from flask import Flask,g,current_app
+from flask import Flask, g, current_app
 from flask_cors import CORS
 import os
 import psycopg2
@@ -7,7 +7,7 @@ app = Flask(__name__, instance_relative_config=True)
 CORS(app)
 app.json.ensure_ascii = False
 
-DATABASE_URL=os.environ['DATABASE_URL']
+DATABASE_URL = os.environ["DATABASE_URL"]
 
 
 # from feature import db
@@ -19,16 +19,18 @@ from feature import test
 
 from feature import db
 
-def get_db():
-    if not hasattr(g,"pg_conn"):
-        g.pg_conn = psycopg2.connect(
-            DATABASE_URL
-        )
-    return g.pg_conn
+# def get_db():
+#     if not hasattr(g,"pg_conn"):
+#         g.pg_conn = psycopg2.connect(
+#             DATABASE_URL
+#         )
+#     return g.pg_conn
 
-@app.route('/')
+
+@app.route("/")
 def hello():
-    return "databaseurl"+DATABASE_URL
+    return "databaseurl" + DATABASE_URL
+
 
 # @app.route('/')
 # def hello_world():
@@ -52,7 +54,7 @@ def hello():
 
 #     row=cursor.fetchall()
 #     result=','.join([str(r) for r in row])
-    
+
 #     return 'DataBase content:'+result
 
 
