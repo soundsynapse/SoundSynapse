@@ -13,3 +13,4 @@ flask_cors
 requests
 requests-oauthlib
 gunicorn
+psycopg2-binary
