@@ -7,7 +7,7 @@ app = Flask(__name__, instance_relative_config=True)
 CORS(app)
 app.json.ensure_ascii = False
 
-DATABASE_URL = os.environ["DATABASE_URL"]
+# DATABASE_URL = os.environ["DATABASE_URL"]
 
 
 # from feature import db
