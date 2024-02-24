@@ -98,20 +98,6 @@ def callback():
     return {"userid": userid, "icon_url": icon_url, "name": name}
     # return redirect(url_for("index"))
 
-@bp.route('/visit')
-def visit():
-    conn=get_db()
-    cursor=conn.cursor()
-
-    cursor.execute('SELECT * FROM user')
-
-    row=cursor.fetchall()
-    result=','.join([str(r) for r in row])
-    
-    return 'DataBase content:'+result
-
-
-
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get("user_id")
@@ -122,7 +108,6 @@ def load_logged_in_user():
         g.user = (
             get_db().execute("SELECT * FROM user WHERE id=?", (user_id,)).fetchone()
         )
-
 
 @bp.route("/logout")
 def logout():

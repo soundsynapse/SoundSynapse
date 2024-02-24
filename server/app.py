@@ -12,49 +12,14 @@ app.config.from_mapping(
     DB=os.environ["DATABASE_URL"],
 )
 
+from feature import auth
+app.register_blueprint(auth.bp)
 
-# from feature import db
-# db.init_db()
-# from feature import auth
-# app.register_blueprint(auth.bp)
-
-from feature import test
-
-
-def get_db():
-    if not hasattr(g,"pg_conn"):
-        g.pg_conn = psycopg2.connect(
-            current_app.config["DB"]
-        )
-    return g.pg_conn
-
-@app.route('/')
-def hello_world():
-    conn=get_db()
-    cursor=conn.cursor()
-
-    cursor.execute('CREATE TABLE IF NOT EXISTS visits (visited_on TIMESTAMP)')
-    conn.commit()
-
-    return 'CREATE TABLE!'
-
-@app.route('/visit')
-def visit():
-    conn=get_db()
-    cursor=conn.cursor()
-
-    cursor.execute('INSERT INTO visits VALUES (NOW())')
-    conn.commit()
-
-    cursor.execute('SELECT * FROM visits')
-
-    row=cursor.fetchall()
-    result=','.join([str(r) for r in row])
-    
-    return 'DataBase content:'+result
-
-
-app.register_blueprint(test.app)
+from feature import db
+@app.route("/init_db")
+def init_db():
+    db.init_db()
+    return "DB initialized"
 
 if __name__ == "__main__":
     app.run()
