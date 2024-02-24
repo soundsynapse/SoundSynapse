@@ -26,7 +26,7 @@ app.json.ensure_ascii=False
 
 @app.route("/")
 def hello():
-    return "Hello, World!SS/server/dayo-n!!"
+  return "hello, heroku!!"
 
 if __name__ == '__main__':
     app.run()
