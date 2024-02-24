@@ -85,7 +85,7 @@ def callback():
     cursor=db.cursor()
 
     cur=cursor.execute(
-        'INSERT INTO user (userid,icon_url,name) VALUES (?,?,?)',
+        'INSERT INTO username (userid,icon_url,name) VALUES (?,?,?)',
         (userid,icon_url,name),
     )
     last_inserted_id=cur.lastrowid
