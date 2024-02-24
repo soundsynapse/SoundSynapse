@@ -11,11 +11,6 @@ app.config.from_mapping(
     DATABASE=os.environ['DATABASE_URL'],
 )
 
-try:
-    os.mkdir(app.instance_path)
-except OSError:
-    pass
-
 from feature import db
 db.init_app(app)
 from feature import auth

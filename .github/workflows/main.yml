@@ -16,4 +16,4 @@ jobs:
           heroku_app_name: "soundsynapse" #Must be unique in Heroku
           heroku_email: "nematatu1003@gmail.com"
           appdir: "server/"
-          usedocker: "true"
+          procfile: "web: gunicorn app:app"
