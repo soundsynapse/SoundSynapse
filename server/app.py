@@ -20,7 +20,6 @@ app.config.from_mapping(
 
 from feature import test
 
-from feature import db
 
 # def get_db():
 #     if not hasattr(g,"pg_conn"):
