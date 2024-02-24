@@ -85,12 +85,12 @@ def callback():
     cursor=db.cursor()
 
     cur=cursor.execute(
-        'INSERT INTO username (userid,icon_url,name) VALUES (?,?,?)',
+        'INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)',
         (userid,icon_url,name),
     )
     last_inserted_id=cur.lastrowid
     db.execute(
-        'INSERT INTO oauth (user_id,identify_type,identifier,credential) VALUES (?,?,?,?)',
+        'INSERT INTO oauth (user_id,identify_type,identifier,credential) VALUES (%s,%s,%s,%s)',
         (last_inserted_id,"twitter",userid,access_token["oauth_token_secret"]),
     )
     db.commit()
