@@ -22,4 +22,4 @@ def init_db():
     return "DB initialized"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
