@@ -30,7 +30,7 @@ from feature import test
 
 @app.route('/')
 def hello():
-    return 'Hello World!'
+    return 'Hello World!'+current_app.config["DB"]
 # @app.route('/')
 # def hello_world():
 #     conn=db.get_db()
