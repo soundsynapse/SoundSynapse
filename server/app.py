@@ -12,7 +12,7 @@ app.config.from_mapping(
 )
 
 from feature import db
-db.init_app(app)
+db.init_db()
 # from feature import auth
 # app.register_blueprint(auth.bp)
 
