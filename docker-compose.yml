@@ -6,6 +6,6 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:password@db/mydatabase
     ports:
-      - "5005:5005"
+      - "8080:8080"
     volumes:
       - ./server:/app

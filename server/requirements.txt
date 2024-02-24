@@ -12,3 +12,4 @@ spotipy
 flask_cors
 requests
 requests-oauthlib
+gunicorn
