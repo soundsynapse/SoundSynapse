@@ -23,11 +23,15 @@ def close_db(e=None):
 
 
 def init_db():
-    db=get_db()
-    cursor=db.cursor()
+    db = get_db()
+    cursor = db.cursor()
 
     with current_app.open_resource('schema.sql') as f:
-        cursor.executescript(f.read().decode('utf8'))
+        schema = f.read().decode('utf8')
+        statements = schema.split(';')
+        for statement in statements:
+            if statement.strip() != '':
+                cursor.execute(statement)
     db.commit()
 # def init_db():
 #     db = get_db()
