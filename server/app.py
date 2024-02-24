@@ -1,6 +1,7 @@
 from flask import Flask,g,current_app
 from flask_cors import CORS
 import os
+import psycopg2
 
 app = Flask(__name__, instance_relative_config=True)
 CORS(app)
