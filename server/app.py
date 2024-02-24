@@ -21,12 +21,12 @@ import os
 # from feature import auth
 # app.register_blueprint(auth.bp)
 
-app1=Flask(__name__)
-app1.json.ensure_ascii=False
+app=Flask(__name__)
+app.json.ensure_ascii=False
 
-@app1.route("/")
+@app.route("/")
 def hello():
     return "Hello, World!"
 
 if __name__ == '__main__':
-    app1.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=True)
+    app.run()
