@@ -88,6 +88,7 @@ def callback():
         'INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)',
         (userid,icon_url,name),
     )
+    db.commit()
     last_inserted_id=cur.lastrowid
     db.execute(
         'INSERT INTO oauth (user_id,identify_type,identifier,credential) VALUES (%s,%s,%s,%s)',
