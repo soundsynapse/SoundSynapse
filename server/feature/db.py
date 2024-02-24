@@ -28,6 +28,7 @@ def close_db(e=None):
 #         db.executescript(f.read().decode('utf8'))
 def init_db():
     db = get_db()
+    cursor=db.cursor()
 
     with current_app.open_resource("schema.sql") as f:
         schema = f.read().decode("utf8")
@@ -38,8 +39,8 @@ def init_db():
                     table_name = (
                         statement.split("CREATE TABLE")[1].split("(")[0].strip()
                     )
-                    db.execute(f"DROP TABLE IF EXISTS {table_name}")
-                db.execute(statement)
+                    cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
+                cursor.execute(statement)
     db.commit()
 
 @click.command("init-db")
