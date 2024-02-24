@@ -11,7 +11,7 @@ CREATE TABLE oauth(
     identify_type TEXT NOT NULL,
     identifier TEXT NOT NULL,
     credential TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES "user" (id)
+    FOREIGN KEY (user_id) REFERENCES username (id)
 );
 
 CREATE TABLE post(
