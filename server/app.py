@@ -8,7 +8,7 @@ app.json.ensure_ascii=False
 
 app.config.from_mapping(
     SECRET_KEY="dev",
-    DATABASE=os.environ.get('DATABASE_URL'),
+    DATABASE=os.environ['DATABASE_URL'],
 )
 
 try:
