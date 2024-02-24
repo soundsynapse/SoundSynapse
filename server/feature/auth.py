@@ -34,7 +34,7 @@ def twitter_login():
     # (Step 1: Obtaining a request token:https://developer.twitter.com/en/docs/authentication/guides/log-in-with-twitter)
     twitter = OAuth1Session(api_key, api_secret)
     # oauth_callback = request.args.get('oauth_callback')
-    oauth_callback = "http://0.0.0.0:8080/auth/callback"
+    oauth_callback = "https://soundsynapse-316201ce96e2.herokuapp.com/auth/callback"
     res = twitter.post(
         request_token_endpoint, params={"oauth_callback": oauth_callback}
     )
