@@ -21,8 +21,6 @@ db.init_app(app)
 from feature import auth
 app.register_blueprint(auth.bp)
 
-app=Flask(__name__)
-app.json.ensure_ascii=False
 
 @app.route("/")
 def hello():
