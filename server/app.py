@@ -12,8 +12,8 @@ app.config.from_mapping(
     DB=os.environ["DATABASE_URL"],
 )
 
-from feature import auth
-app.register_blueprint(auth.bp)
+# from feature import auth
+# app.register_blueprint(auth.bp)
 
 from feature import db
 @app.route("/init_db")
