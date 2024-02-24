@@ -16,16 +16,37 @@ app.config.from_mapping(
 # from feature import auth
 # app.register_blueprint(auth.bp)
 
-
-@app.route("/")
-def hello():
-    return "init-db()"
-
-
 from feature import test
 
+from feature import db
+
+@app.route('/')
+def hello_world():
+    conn=db.get_db()
+    cursor=conn.cursor()
+
+    cursor.execute('CREATE TABLE IF NOT EXISTS visits (visited_on TIMESTAMP)')
+    conn.commit()
+
+    return 'CREATE TABLE!'
+
+@app.route('/visit')
+def visit():
+    conn=db.get_db()
+    cursor=conn.cursor()
+
+    cursor.execute('INSERT INTO visits VALUES (NOW())')
+    conn.commit()
+
+    cursor.execute('SELECT * FROM visits')
+
+    row=cursor.fetchall()
+    result=','.join([str(r) for r in row])
+    
+    return 'DataBase content:'+result
+
+
 app.register_blueprint(test.app)
-test.init_test()
 
 if __name__ == "__main__":
     app.run()

@@ -6,11 +6,11 @@ from flask import current_app, g
 
 
 def get_db():
-    if "db" not in g:
-        g.db = psycopg2.connect(
+    if not hasattr(g,"pg_conn"):
+        g.pg_conn = psycopg2.connect(
             current_app.config["DATABASE"]
         )
-    return g.db
+    return g.pg_conn
 
 
 def close_db(e=None):
