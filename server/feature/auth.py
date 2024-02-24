@@ -82,7 +82,9 @@ def callback():
     icon_url = user_info["profile_image_url_https"]
     name = user_info["name"]
 
-    cur=db.execute(
+    cursor=db.cursor()
+
+    cur=cursor.execute(
         'INSERT INTO user (userid,icon_url,name) VALUES (?,?,?)',
         (userid,icon_url,name),
     )
@@ -95,6 +97,18 @@ def callback():
 
     return {"userid": userid, "icon_url": icon_url, "name": name}
     # return redirect(url_for("index"))
+
+@bp.route('/visit')
+def visit():
+    conn=get_db()
+    cursor=conn.cursor()
+
+    cursor.execute('SELECT * FROM user')
+
+    row=cursor.fetchall()
+    result=','.join([str(r) for r in row])
+    
+    return 'DataBase content:'+result
 
 
 
