@@ -3,12 +3,14 @@ import psycopg2
 
 import click
 from flask import current_app, g
+import os
 
+DB=os.environ["DATABASE_URL"],
 
 def get_db():
     if not hasattr(g,"pg_conn"):
         g.pg_conn = psycopg2.connect(
-            current_app.config["DATABASE"]
+            DB
         )
     return g.pg_conn
 
