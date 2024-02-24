@@ -21,5 +21,8 @@ app.config.from_mapping(
 def hello():
      return "init-db()"
 
+from feature import test
+app.register_blueprint(test.app)
+
 if __name__ == '__main__':
     app.run()
