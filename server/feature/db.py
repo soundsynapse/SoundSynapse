@@ -5,7 +5,7 @@ import click
 from flask import current_app, g
 import os
 
-DB=os.environ["DATABASE_URL"],
+DB=os.environ["DATABASE_URL"]
 
 def get_db():
     if not hasattr(g,"pg_conn"):
@@ -16,7 +16,7 @@ def get_db():
 
 
 def close_db(e=None):
-    db = g.pop("db", None)
+    db = g.pop("pg_conn", None)
 
     if db is not None:
         db.close()
