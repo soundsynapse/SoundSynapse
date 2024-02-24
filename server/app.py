@@ -27,10 +27,13 @@ from feature import db
 #     return g.pg_conn
 
 
+# @app.route("/")
+# def hello():
+#     return "databaseurl" + DATABASE_URL
+
 @app.route("/")
 def hello():
-    return "databaseurl" + DATABASE_URL
-
+    return "hello"
 
 # @app.route('/')
 # def hello_world():
