@@ -27,9 +27,9 @@ from feature import test
 #         )
 #     return g.pg_conn
 
-@app.route("/")
+@app.route('/')
 def hello():
-    return "Hello World!"
+    return 'Hello World!'
 # @app.route('/')
 # def hello_world():
 #     conn=db.get_db()
