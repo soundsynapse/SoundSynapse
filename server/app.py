@@ -9,9 +9,9 @@ app.json.ensure_ascii = False
 
 app.config.from_mapping(
     SECRET_KEY="dev",
+    DB=os.environ["DATABASE_URL"],
 )
 
-database_url=os.environ["DATABASE_URL"],
 
 # from feature import db
 # db.init_db()
@@ -31,7 +31,7 @@ from feature import db
 
 @app.route('/')
 def hello():
-    return 'Hello World!'+database_url
+    return 'Hello World!'
 # @app.route('/')
 # def hello_world():
 #     conn=db.get_db()
