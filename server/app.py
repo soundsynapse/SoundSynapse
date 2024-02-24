@@ -26,8 +26,7 @@ app.json.ensure_ascii=False
 
 @app.route("/")
 def hello():
-    auth.init_db()
-    return "init-db()"
+     return "init-db()"
 
 if __name__ == '__main__':
     app.run()
