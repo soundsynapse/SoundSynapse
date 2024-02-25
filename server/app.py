@@ -9,12 +9,21 @@ load_dotenv()
 
 app = Flask(__name__, instance_relative_config=True)
 app.json.ensure_ascii = False
-CORS(app, origins="*", methods=["GET", "POST"])
+CORS(app, origins=["http:"], methods=["GET", "POST"])
 
 app.config.from_mapping(
     SECRET_KEY="dev",
     DB=os.environ["DATABASE_URL"],
 )
+
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
 
 # app.config.from_mapping(
 #     SECRET_KEY="dev",
