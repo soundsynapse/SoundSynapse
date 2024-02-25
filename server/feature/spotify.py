@@ -1,20 +1,26 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint,request
 from dotenv import load_dotenv
+import requests
+from .db import get_db
+from flask_cors import CORS
 
 load_dotenv()
 
 client_id = os.environ["SP_CLI_KEY"]
 client_secret = os.environ["SP_SCR_KEY"]
+
+# client_id = os.environ.get("SP_CLI_KEY")
+# client_secret = os.environ.get("SP_SCR_KEY")
 client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(
     client_id, client_secret
 )
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 music = Blueprint("music", __name__, url_prefix="/music")
-
+CORS(music)
 
 @music.route("/artist/<string:artist>")
 def return_artist(artist):
@@ -36,3 +42,37 @@ def info_music(id):
     # ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
     result = sp.audio_features(id)
     return result
+
+@music.route("/return_music/", methods=["POST"])
+def return_music():
+    data = request.get_json()
+    music_ids = data["music"]
+    user_id = data["userid"]  # Assuming this is the user ID
+    event_id = int(data["eventid"])
+
+    music_id1 = music_ids[0]
+    music_id2 = music_ids[1]
+    music_id3 = music_ids[2]
+
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute(
+        'UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s WHERE userid = %s',
+        (event_id, music_id1, music_id2, music_id3, user_id)
+    )
+    db.commit()
+    return "ok"
+@music.route("/test", methods=["POST"])
+def test():
+    data = request.get_json()
+    db=get_db()
+    cursor=db.cursor()
+    cursor.execute(
+        'INSERT INTO test (test) VALUES (%s)',
+        (data["test"],)
+    )   
+    db.commit()
+    print(data)
+    return "ok"
+

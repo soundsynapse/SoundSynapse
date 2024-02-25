@@ -14,10 +14,14 @@ from requests_oauthlib import OAuth1Session
 import urllib.parse as parse
 from dotenv import load_dotenv
 import os
+from urllib.parse import urlencode, urlunparse
 
 load_dotenv()
 api_key = os.environ["TW_CLI_KEY"]
 api_secret = os.environ["TW_SCR_KEY"]
+
+# api_key = os.environ.get("TW_CLI_KEY")
+# api_secret = os.environ.get("TW_SCR_KEY")
 
 # Twitter Endpoint
 twitter_base_url = "https://api.twitter.com"
@@ -83,34 +87,65 @@ def callback():
     icon_url = user_info["profile_image_url_https"]
     name = user_info["name"]
 
+    # session['user_id']=userid
     cursor = db.cursor()
 
-    cur = cursor.execute(
-        "INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)",
-        (userid, icon_url, name),
-    )
-    db.commit()
-    #last_inserted_id = cur.lastrowid
-    cursor.execute(
-        "INSERT INTO oauth (identify_type,identifier,credential) VALUES (%s,%s,%s)",
-        ( "twitter", userid, access_token["oauth_token_secret"]),
-    )
-    db.commit()
+    cursor.execute("SELECT * FROM oauth WHERE identifier=%s", (userid,))
+    result = cursor.fetchone()
+    if result is None:
 
-    return {"userid": userid, "icon_url": icon_url, "name": name}
-    # return redirect(url_for("index"))
-
-
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get("user_id")
-
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = (
-            get_db().execute("SELECT * FROM user WHERE id=%s", (user_id,)).fetchone()
+        cursor.execute(
+            "INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)",
+            (userid, icon_url, name),
         )
+
+        db.commit()
+        # last_inserted_id = cur.lastrowid
+        cursor.execute(
+            "INSERT INTO oauth (identify_type,identifier,credential) VALUES (%s,%s,%s)",
+            ("twitter", userid, access_token["oauth_token_secret"]),
+        )
+
+    else:
+        cursor.execute(
+            "UPDATE username SET icon_url=%s,name=%s WHERE userid=%s",
+            (icon_url, name, userid),
+        )
+        cursor.execute(
+            "UPDATE oauth SET credential=%s WHERE identifier=%s",
+            (access_token["oauth_token_secret"], userid),
+        )
+
+    db.commit()
+    # session['user']={"userid": userid, "icon_url": icon_url, "name": name}
+    # return redirect(url_for("index"))
+    params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
+    # パラメータをURLに追加
+    redirect_url = urlunparse(
+        ("http", "localhost:3000", "/event-list", "", params, "")
+    )
+    return redirect(redirect_url)
+
+
+
+@bp.route("/login")
+def login():
+    userid = session.get("user_id")
+    if userid is None:
+        return "login required."
+    return userid
+
+
+# @bp.before_app_request
+# def load_logged_in_user():
+#     user_id = session.get("user_id")
+
+#     if user_id is None:
+#         g.user = None
+#     else:
+#         g.user = (
+#             get_db().execute("SELECT * FROM user WHERE id=%s", (user_id,)).fetchone()
+#         )
 
 
 @bp.route("/logout")
@@ -128,7 +163,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for("auth.login"))
+            return "login required."
         return view(**kwargs)
 
     return wrapped_view

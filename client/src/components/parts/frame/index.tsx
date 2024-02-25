@@ -34,6 +34,9 @@ const TitleText = styled.div`
   margin: 0;
   color: white;
   margin-bottom: 100px;
+  @media screen and (max-width: 950px) {
+    font-size: 32px;
+  }
 `;
 const StyledIcon = styled.img`
   width: 80px;

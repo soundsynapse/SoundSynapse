@@ -43,12 +43,19 @@ const StyledButton = styled.button<{ color: "pink" | "blue" }>`
   border-radius: 50px;
   min-width: 150px;
   cursor: pointer;
+  @media screen and (max-width: 950px) {
+    font-size: 16px;
+  }
 `;
 const Wrapper = styled.div`
   background: white;
   border-radius: 12px;
   padding: 20px 30px;
   width: 500px;
+  @media screen and (max-width: 950px) {
+    margin: 10px;
+    margin-bottom: 100px;
+  }
 `;
 const BackGround = styled.div`
   position: fixed;
@@ -65,6 +72,10 @@ const ButtonWrapper = styled.div<{ twoButton: boolean }>`
   display: flex;
   justify-content: ${({ twoButton }) =>
     twoButton ? "space-between" : "center"};
+  @media screen and (max-width: 950px) {
+    gap: 10px;
+    margin: -10px;
+  }
 `;
 const Text = styled.p`
   font-size: 24px;
