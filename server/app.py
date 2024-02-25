@@ -1,4 +1,4 @@
-from flask import Flask,g,current_app
+from flask import Flask, g, current_app
 from flask_cors import CORS
 import os
 import psycopg2
@@ -13,13 +13,21 @@ app.config.from_mapping(
 )
 
 from feature import auth
+
 app.register_blueprint(auth.bp)
 
+from feature import spotify
+
+app.register_blueprint(spotify.music)
+
 from feature import db
+
+
 @app.route("/init_db")
 def init_db():
     db.init_db()
     return "DB initialized"
+
 
 if __name__ == "__main__":
     app.run(debug=True)

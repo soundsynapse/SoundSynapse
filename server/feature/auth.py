@@ -28,6 +28,7 @@ credentials = twitter_base_url + "/1.1/account/verify_credentials.json"
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
+
 @bp.route("/twitter_login", methods=("GET", "POST"))
 def twitter_login():
     # 1.リクエストトークンを取得する。
@@ -82,22 +83,23 @@ def callback():
     icon_url = user_info["profile_image_url_https"]
     name = user_info["name"]
 
-    cursor=db.cursor()
+    cursor = db.cursor()
 
-    cur=cursor.execute(
-        'INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)',
-        (userid,icon_url,name),
+    cur = cursor.execute(
+        "INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)",
+        (userid, icon_url, name),
     )
     db.commit()
-    last_inserted_id=cur.lastrowid
+    last_inserted_id = cur.lastrowid
     db.execute(
-        'INSERT INTO oauth (user_id,identify_type,identifier,credential) VALUES (%s,%s,%s,%s)',
-        (last_inserted_id,"twitter",userid,access_token["oauth_token_secret"]),
+        "INSERT INTO oauth (user_id,identify_type,identifier,credential) VALUES (%s,%s,%s,%s)",
+        (last_inserted_id, "twitter", userid, access_token["oauth_token_secret"]),
     )
     db.commit()
 
     return {"userid": userid, "icon_url": icon_url, "name": name}
     # return redirect(url_for("index"))
+
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -110,14 +112,17 @@ def load_logged_in_user():
             get_db().execute("SELECT * FROM user WHERE id=%s", (user_id,)).fetchone()
         )
 
+
 @bp.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("index"))
 
+
 @bp.route("/")
 def index():
     return "index"
+
 
 def login_required(view):
     @functools.wraps(view)
