@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS post CASCADE;
 
 CREATE TABLE username(
     id SERIAL PRIMARY KEY,
-    userid TEXT  NOT NULL,
+    userid TEXT UNIQUE NOT NULL,
     icon_url TEXT DEFAULT 'https://soco-st.com/wp-content/themes/socost/upload/18225_color.svg',
     name TEXT NOT NULL
 );
