@@ -72,5 +72,6 @@ def test():
         'INSERT INTO test (test) VALUES (%s)',
         (data["test"],)
     )   
+    print(data)
     return "ok"
 
