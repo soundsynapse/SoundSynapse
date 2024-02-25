@@ -31,7 +31,6 @@ export const Result = () => {
     alert(
       `ユーザーid : ${userId}, イベントid: ${eventId}でマッチングAPIを叩く`
     );
-    // setData(result)
     setData({
       name: "【公式】技育プロジェクト",
       likeMusic: [
