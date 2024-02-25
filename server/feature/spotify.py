@@ -72,6 +72,7 @@ def test():
         'INSERT INTO test (test) VALUES (%s)',
         (data["test"],)
     )   
+    db.commit()
     print(data)
     return "ok"
 
