@@ -2,6 +2,9 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
 from flask import Flask, Blueprint
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client_id = os.environ["SP_CLI_KEY"]
 client_secret = os.environ["SP_SCR_KEY"]
