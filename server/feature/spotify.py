@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import requests
 from .db import get_db
 from flask_cors import CORS
+import json
 
 load_dotenv()
 
@@ -49,7 +50,22 @@ def insert_info_music(id):
     cursor=db.cursor()
 
     music_info=info_music(id)
-    
+    data_dict=json.loads(music_info)[0]
+
+    acousticness = data_dict['acousticness']
+    danceability = data_dict['danceability']
+    duration_ms = data_dict['duration_ms']
+    energy = data_dict['energy']
+    instrumentalness = data_dict['instrumentalness']
+    key = data_dict['key']
+    liveness = data_dict['liveness']
+    loudness = data_dict['loudness']
+    mode = data_dict['mode']
+    speechiness = data_dict['speechiness']
+    tempo = data_dict['tempo']
+    time_signature = data_dict['time_signature']
+    valence = data_dict['valence']
+
     return music_info
 
 @music.route("/return_music/", methods=["POST"])
