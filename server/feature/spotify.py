@@ -43,16 +43,16 @@ def info_music(id):
     result = sp.audio_features(id)
     return result
 
-@music.route("/return_music/", methods=["GET","POST"])
+@music.route("/return_music/", methods=["POST"])
 def return_music():
     data = request.get_json()
     music_ids = data["music"]
     user_id = data["userid"]  # Assuming this is the user ID
-    event_id = data["eventid"]
+    event_id = int(data["eventid"])
 
-    music_id1 = int(music_ids[0])
-    music_id2 = int(music_ids[1])
-    music_id3 = int(music_ids[2])
+    music_id1 = music_ids[0]
+    music_id2 = music_ids[1]
+    music_id3 = music_ids[2]
 
     db = get_db()
     cursor = db.cursor()
