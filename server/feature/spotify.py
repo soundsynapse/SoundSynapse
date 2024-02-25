@@ -61,10 +61,16 @@ def return_music():
         (event_id,music_id1,music_id2,music_id3)
     )
     db.commit()
+    return "ok"
 
 @music.route("/test", methods=["POST"])
 def test():
     data = request.json
-    print(data)
+    db=get_db()
+    cursor=db.cursor()
+    cursor.execute(
+        'INSERT INTO test (test) VALUES (%s)',
+        (data["test"],)
+    )   
     return "ok"
 
