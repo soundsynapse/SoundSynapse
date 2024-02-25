@@ -65,7 +65,7 @@ export const MusicRegisterLayout = ({
           }}
         />
       </InputWrapper>
-      <div>
+      <SearchResultWrapper>
         <SearchResult
           searchResults={
             displayResult.length === 0
@@ -94,7 +94,7 @@ export const MusicRegisterLayout = ({
             />
           </PaginationWrapper>
         )}
-      </div>
+      </SearchResultWrapper>
       <CardWrapper>
         {selectedMusic.map((item, index) => (
           <MusicCard
@@ -148,29 +148,23 @@ const Wrapper = styled.div`
   display: grid;
   justify-items: center;
   gap: 30px;
-  @media screen and (max-width: 950px) {
-    justify-content: space-around;
-  }
 `;
 const InputWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  //justify-content: center;
   gap: 20px;
   margin-left: 70px;
-  @media screen and (max-width: 950px) {
-    display: flex;
+  @media screen and (max-width: 800px) {
     flex-direction: column;
     align-items: flex-end;
-    width: 180px;
-    margin-left: 100px;
+    margin-left: 0;
   }
 `;
 const CardWrapper = styled.div`
   display: flex;
   gap: 20px;
-  @media screen and (max-width: 950px) {
-    flex-direction: column;
-  }
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 const ButtonWrapper = styled.div`
   margin-left: auto;
@@ -187,3 +181,4 @@ const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+const SearchResultWrapper = styled.div``;

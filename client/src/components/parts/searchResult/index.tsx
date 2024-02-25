@@ -28,11 +28,8 @@ const Text = styled.div`
   font-size: 24px;
   background-color: white;
   cursor: pointer;
-  width: 440px;
+  max-width: 440px;
   font-weight: 700;
-  @media screen and (max-width: 950px) {
-    width: 200px;
-  }
 
   &:last-child {
     border-bottom-left-radius: 24px;

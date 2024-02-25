@@ -34,8 +34,11 @@ const TitleText = styled.div`
   margin: 0;
   color: white;
   margin-bottom: 100px;
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: 900px) {
     font-size: 32px;
+  }
+  @media screen and (max-width: 480px) {
+    width: 160px;
   }
 `;
 const StyledIcon = styled.img`
@@ -43,4 +46,8 @@ const StyledIcon = styled.img`
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
+  @media screen and (max-width: 480px) {
+    width: 50px;
+    height: 50px;
+  }
 `;

@@ -17,8 +17,8 @@ export const MusicCard = ({ id, onClickCancel }: MusicCardProps) => {
       <iframe
         title={"test"}
         src={`https://open.spotify.com/embed/track/${id}?utm_source=generator`}
-        width="300"
-        height="200"
+        width="270"
+        height="180"
         frameBorder="0"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
@@ -31,12 +31,12 @@ const Wrapper = styled.div`
   background-color: white;
   padding: 10px;
   height: 150px;
-  width: 300px;
+  width: 270px;
   position: relative;
 `;
 const IconWrapper = styled.div`
   cursor: pointer;
   position: absolute;
-  left: 295px;
+  left: 265px;
   top: -10px;
 `;

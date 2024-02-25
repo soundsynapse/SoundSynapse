@@ -90,7 +90,6 @@ const Text = styled.h2`
   margin-top: 20px;
   @media screen and (max-width: 950px) {
     font-size: 27px;
-    text-align: start;
   }
 `;
 const MusicText = styled.p`
@@ -103,12 +102,10 @@ const MusicText = styled.p`
 const MusicWrapper = styled.div`
   display: flex;
   gap: 20px;
-  justify-content: center;
   align-items: center;
   margin-bottom: 50px;
-  @media screen and (max-width: 950px) {
-    flex-direction: column;
-  }
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 const ButtonWrapper = styled.div`
   margin-top: 30px;
