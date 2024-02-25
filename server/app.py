@@ -3,7 +3,7 @@ from flask_cors import CORS
 import os
 import psycopg2
 from dotenv import load_dotenv
-from flask_session import Session
+#from flask_session import Session
 
 load_dotenv()
 
@@ -21,7 +21,7 @@ app.config.from_mapping(
 #     DB=os.environ.get("DATABASE_URL"),
 # )
 
-Session(app)
+#Session(app)
 from feature import auth
 
 app.register_blueprint(auth.bp)
