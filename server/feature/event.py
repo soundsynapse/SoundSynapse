@@ -37,6 +37,6 @@ def get_event():
     )
     results=cursor.fetchall()
 
-    events = [{"id": result[0], "title": result[1]} for result in results]
+    events = [{"id": str(result[0]) , "name": result[1]} for result in results]
 
     return jsonify(events)

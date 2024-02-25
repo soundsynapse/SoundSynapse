@@ -125,7 +125,6 @@ def callback():
         ("http", "localhost:3000", "/event-list", "", params, "")
     )
     return redirect(redirect_url)
-        return "already exists."
 
 
 
