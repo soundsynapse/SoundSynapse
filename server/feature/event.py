@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint,jsonify
 from .db import get_db
 
 event=Blueprint("event",__name__,url_prefix="/event")
@@ -33,7 +33,10 @@ def get_event():
     cursor=db.cursor()
 
     cursor.execute(
-        'SELECT * FROM event'
+        'SELECT title FROM event '
     )
-    event=cursor.fetchall()
-    return str(event)
+    titles=cursor.fetchall()
+
+    titles=[title[0] for title in titles]
+
+    return jsonify(titles)
