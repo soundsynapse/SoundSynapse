@@ -60,6 +60,7 @@ def return_music():
         'INSERT INTO username (event_id,music_id1,music_id2,music_id3) VALUES (%s,%s,%s,%s)',
         (event_id,music_id1,music_id2,music_id3)
     )
+    db.commit()
 
 
 
