@@ -105,20 +105,26 @@ def callback():
             "INSERT INTO oauth (identify_type,identifier,credential) VALUES (%s,%s,%s)",
             ("twitter", userid, access_token["oauth_token_secret"]),
         )
-        db.commit()
-
-        # session['user']={"userid": userid, "icon_url": icon_url, "name": name}
-        # return redirect(url_for("index"))
-        params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
-
-        # パラメータをURLに追加
-        redirect_url = urlunparse(
-            ("http", "localhost:3000", "/event-list", "", params, "")
-        )
-        return redirect(redirect_url)
 
     else:
-        return "already exists."
+        cursor.execute(
+            "UPDATE username SET icon_url=%s,name=%s WHERE userid=%s",
+            (icon_url, name, userid),
+        )
+        cursor.execute(
+            "UPDATE oauth SET credential=%s WHERE identifier=%s",
+            (access_token["oauth_token_secret"], userid),
+        )
+
+    db.commit()
+    # session['user']={"userid": userid, "icon_url": icon_url, "name": name}
+    # return redirect(url_for("index"))
+    params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
+    # パラメータをURLに追加
+    redirect_url = urlunparse(
+        ("http", "localhost:3000", "/event-list", "", params, "")
+    )
+    return redirect(redirect_url)
 
 
 
