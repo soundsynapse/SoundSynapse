@@ -65,5 +65,6 @@ def return_music():
 @music.route("/test", methods=["POST"])
 def test():
     data = request.json
-    return print(data)
+    print(data)
+    return "ok"
 
