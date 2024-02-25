@@ -86,7 +86,7 @@ def callback():
     icon_url = user_info["profile_image_url_https"]
     name = user_info["name"]
 
-    session['user_id']=userid
+    #session['user_id']=userid
     cursor = db.cursor()
     try:
         cur = cursor.execute(
@@ -114,16 +114,16 @@ def login():
         return "login required."
     return userid
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get("user_id")
+# @bp.before_app_request
+# def load_logged_in_user():
+#     user_id = session.get("user_id")
 
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = (
-            get_db().execute("SELECT * FROM user WHERE id=%s", (user_id,)).fetchone()
-        )
+#     if user_id is None:
+#         g.user = None
+#     else:
+#         g.user = (
+#             get_db().execute("SELECT * FROM user WHERE id=%s", (user_id,)).fetchone()
+#         )
 
 
 @bp.route("/logout")
