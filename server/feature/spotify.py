@@ -45,7 +45,7 @@ def info_music(id):
 
 @music.route("/return_music/", methods=["GET","POST"])
 def return_music():
-    data = request.json
+    data = request.get_json()
     music_ids = data["music"]
     id=data["userid"]
     event_id=data["eventid"]
