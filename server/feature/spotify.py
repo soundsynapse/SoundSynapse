@@ -50,7 +50,7 @@ def insert_info_music(id):
     cursor=db.cursor()
 
     music_info=info_music(id)
-    data_dict=json.loads(music_info)
+    data_dict=music_info[0]
 
     acousticness = data_dict['acousticness']
     danceability = data_dict['danceability']
