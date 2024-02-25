@@ -49,9 +49,9 @@ def return_music():
     id=data["userid"]
     event_id=data["eventid"]
 
-    music_id1=music_ids[0]
-    music_id2=music_ids[1]
-    music_id3=music_ids[2]
+    music_id1=int(music_ids[0])
+    music_id2=int(music_ids[1])
+    music_id3=int(music_ids[2])
 
     db = get_db()
     cursor = db.cursor()
