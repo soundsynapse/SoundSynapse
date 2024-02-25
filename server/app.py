@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__, instance_relative_config=True)
-CORS(app)
+CORS(app, resources={r"/music/*": {"origins": "*"}})
 app.json.ensure_ascii = False
 
 app.config.from_mapping(
