@@ -17,14 +17,6 @@ app.config.from_mapping(
 )
 
 
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
-
-
 # app.config.from_mapping(
 #     SECRET_KEY="dev",
 #     DB=os.environ.get("DATABASE_URL"),
