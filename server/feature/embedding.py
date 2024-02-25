@@ -4,11 +4,21 @@ import json
 import os
 import numpy as np
 import pandas as pd
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Blueprint
 from .db import get_db
 
 api_key = os.environ.get("OPEN_AI_KEY")
 client = OpenAI(api_key=api_key)
+
+ai=Blueprint("embedding",__name__,url_prefix="/ai")
+
+@ai.route("/test")
+def test():
+    db=get_db()
+    cursor=db.cursor()
+    cursor.execute(
+        
+    )
 
 
 def get_embedding(text, model="text-embedding-ada-002"):
@@ -39,7 +49,7 @@ def load_and_update_data():
         json.dump({"data": updated_data}, file, ensure_ascii=False)
 
 
-@app.route("/get_recommendations/<string:recommendations>")
+@ai.route("/get_recommendations/<string:recommendations>")
 def get_recommendations(recommendations):
     # updated_data.jsonからデータを読み込む
     with open("updated_data.json", "r", encoding="utf-8") as file:
