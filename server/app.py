@@ -9,6 +9,7 @@ load_dotenv()
 
 app = Flask(__name__, instance_relative_config=True)
 app.json.ensure_ascii = False
+CORS(app, origins="*", methods=["GET", "POST"])
 
 app.config.from_mapping(
     SECRET_KEY="dev",
@@ -33,7 +34,6 @@ from feature import db
 
 from feature import event
 app.register_blueprint(event.event)
-CORS(app)
 @app.route("/init_db")
 def init_db():
     db.init_db()
