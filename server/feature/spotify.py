@@ -1,8 +1,10 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint,request
 from dotenv import load_dotenv
+import requests
+from .db import get_db
 
 load_dotenv()
 
@@ -39,3 +41,24 @@ def info_music(id):
     # ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
     result = sp.audio_features(id)
     return result
+
+@music.route("/return_music/", methods=["POST"])
+def return_music():
+    data = request.json
+    music_ids = data["music"]
+    id=data["userid"]
+    event_id=data["eventid"]
+
+    music_id1=music_ids[0]
+    music_id2=music_ids[1]
+    music_id3=music_ids[2]
+
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute(
+        'INSERT INTO username (event_id,music_id1,music_id2,music_id3) VALUES (%s,%s,%s,%s)',
+        (event_id,music_id1,music_id2,music_id3)
+    )
+
+
+    return 

@@ -15,8 +15,11 @@ CREATE TABLE username(
     userid TEXT UNIQUE NOT NULL,
     icon_url TEXT DEFAULT 'https://soco-st.com/wp-content/themes/socost/upload/18225_color.svg',
     name TEXT NOT NULL,
-    event TEXT,
-    FOREIGN KEY (event) REFERENCES event (title)
+    event_id TEXT,
+    music_id1 TEXT,
+    music_id2 TEXT,
+    music_id3 TEXT,
+    FOREIGN KEY (event) REFERENCES event (id)
 );
 
 CREATE TABLE oauth(
