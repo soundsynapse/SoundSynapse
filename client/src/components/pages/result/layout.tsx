@@ -78,6 +78,10 @@ const Text = styled.h2`
   color: white;
   text-align: center;
   margin-bottom: 30px;
+  @media screen and (max-width: 950px) {
+    font-size: 27px;
+    text-align: start;
+  }
 `;
 const MusicText = styled.p`
   margin: 30px 0;
@@ -90,7 +94,11 @@ const MusicWrapper = styled.div`
   display: flex;
   gap: 20px;
   justify-content: center;
+  align-items: center;
   margin-bottom: 50px;
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 const ButtonWrapper = styled.div`
   display: grid;

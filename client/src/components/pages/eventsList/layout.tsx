@@ -72,6 +72,9 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 const MusicText = styled.p`
   margin: 30px 0;

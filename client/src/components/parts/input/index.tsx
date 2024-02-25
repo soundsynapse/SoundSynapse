@@ -32,10 +32,16 @@ const StyledInput = styled.input`
   width: 440px;
   font-size: 24px;
   font-weight: 700;
+  @media screen and (max-width: 950px) {
+    width: 220px;
+  }
 
   &::placeholder {
     color: gray;
     font-size: 18px;
+    @media screen and (max-width: 950px) {
+      font-size: 14px;
+    }
   }
 
   &:focus-visible {
