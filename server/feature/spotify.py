@@ -66,7 +66,16 @@ def insert_info_music(id):
     time_signature = data_dict['time_signature']
     valence = data_dict['valence']
 
-    return music_info
+    insert_sql = """
+    INSERT INTO music_features (id, acousticness, danceability, duration_ms, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """
+
+    cursor.execute(insert_sql, (id, acousticness, danceability, duration_ms, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence))
+
+    db.commit()
+
+    return "insert ok!"
 
 @music.route("/return_music/", methods=["POST"])
 def return_music():
