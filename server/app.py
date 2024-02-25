@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__, instance_relative_config=True)
-CORS(app, resources={r"/music/*": {"origins": "*"}})
 app.json.ensure_ascii = False
 
 app.config.from_mapping(
@@ -34,6 +33,7 @@ from feature import db
 
 from feature import event
 app.register_blueprint(event.event)
+CORS(app)
 @app.route("/init_db")
 def init_db():
     db.init_db()
