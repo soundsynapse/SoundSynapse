@@ -7,6 +7,7 @@ import { Button } from "../../parts/button";
 
 type ResultLayoutProps = {
   name: string;
+  image: string;
   likeMusic: Data[];
   isLoading: boolean;
   xId: string;
@@ -15,6 +16,7 @@ type ResultLayoutProps = {
 
 export const ResultLayout = ({
   name,
+  image,
   likeMusic,
   isLoading,
   xId,
@@ -29,7 +31,11 @@ export const ResultLayout = ({
       ) : (
         <>
           <ImageWrapper>
-            <HiOutlineUserCircle color="white" size={"250px"} />
+            {image === "" ? (
+              <HiOutlineUserCircle color="white" size={"250px"} />
+            ) : (
+              <StyledIcon src={image} />
+            )}
           </ImageWrapper>
           <Text>
             {name}さんと
@@ -96,4 +102,10 @@ const ButtonWrapper = styled.div`
   display: grid;
   justify-items: center;
   gap: 30px;
+`;
+const StyledIcon = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
 `;

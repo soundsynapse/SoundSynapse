@@ -1,16 +1,34 @@
 import styled from "styled-components";
 import { Button } from "../../parts/button";
 import humanIcon from "../../../image/humanIcon.png";
+import { Modal } from "../../parts/modal";
+import { Data } from "../../parts/searchResult";
 
 type StartLayoutProps = {
-  onClickStartButton: () => void;
+  user: Data | null;
+  onClickAuthButton: () => void;
+  onClickNextButton: (user: Data) => void;
+  onClickCancelButton: () => void;
 };
 
-export const StartLayout = ({ onClickStartButton }: StartLayoutProps) => {
+export const StartLayout = ({
+  user,
+  onClickAuthButton,
+  onClickNextButton,
+  onClickCancelButton,
+}: StartLayoutProps) => {
   return (
     <Wrapper>
       <Icon src={humanIcon} alt="イヤホンをした人のイラスト" />
-      <Button color="blue" text="はじめる" onClick={onClickStartButton} />
+      <Button color="blue" text="Xでログイン" onClick={onClickAuthButton} />
+      {user && (
+        <Modal
+          text={`${user.name}でログインします、よろしいでしょうか`}
+          nextButtonText="ログインする"
+          onClickNextButton={() => onClickNextButton(user)}
+          onClickBackButton={onClickCancelButton}
+        />
+      )}
     </Wrapper>
   );
 };

@@ -41,6 +41,7 @@ export const Template = () => {
         isLoading={isLoading}
         onClickBackButton={() => alert("楽曲登録画面に遷移")}
         xId="geek_pjt"
+        image="https://pbs.twimg.com/profile_images/1504992081210916865/4JyOAQLx_400x400.jpg"
       />
     </Frame>
   );

@@ -8,6 +8,7 @@ type DataType = {
   name: string;
   likeMusic: Data[];
   xId: string;
+  image: string;
 };
 
 export const Result = () => {
@@ -17,6 +18,7 @@ export const Result = () => {
     name: "",
     likeMusic: [],
     xId: "",
+    image: "",
   });
   const navigate = useNavigate();
 
@@ -47,6 +49,8 @@ export const Result = () => {
         },
       ],
       xId: "geek_pjt",
+      image:
+        "https://pbs.twimg.com/profile_images/1504992081210916865/4JyOAQLx_400x400.jpg",
     });
     setIsLoading(false);
   };
@@ -62,6 +66,7 @@ export const Result = () => {
       isLoading={isLoading}
       xId={data.xId}
       onClickBackButton={() => navigate("/music-register")}
+      image={data.image}
     />
   );
 };

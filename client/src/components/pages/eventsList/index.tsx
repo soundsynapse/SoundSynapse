@@ -123,7 +123,7 @@ export const EventList = () => {
           eventId: id,
           userId: userId,
         });
-        navigate("/login");
+        navigate("/music-register");
       }}
       onClickCreateButton={() => navigate("/event-register")}
     />
