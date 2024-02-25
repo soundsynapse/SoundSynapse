@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { MusicCard } from "../../parts/musicCard";
 import { Button } from "../../parts/button";
+import { Timeline } from "react-twitter-widgets";
 
 type ResultLayoutProps = {
   name: string;
@@ -49,14 +50,16 @@ export const ResultLayout = ({
             ))}
           </MusicWrapper>
           <Text>{name}さんと会話を始めましょう♪</Text>
+          <Timeline
+            dataSource={{
+              sourceType: "profile",
+              screenName: xId, // アカウント名
+            }}
+            options={{
+              height: "800",
+            }}
+          />
           <ButtonWrapper>
-            <a href={`https://twitter.com/${xId}`}>
-              <Button
-                text={`${name}さんをフォローする`}
-                color="pink"
-                onClick={() => console.log("")}
-              />
-            </a>
             <Button
               text={"もう一度やり直す"}
               color="blue"
@@ -84,6 +87,7 @@ const Text = styled.h2`
   color: white;
   text-align: center;
   margin-bottom: 30px;
+  margin-top: 20px;
 `;
 const MusicText = styled.p`
   margin: 30px 0;
@@ -99,9 +103,8 @@ const MusicWrapper = styled.div`
   margin-bottom: 50px;
 `;
 const ButtonWrapper = styled.div`
-  display: grid;
-  justify-items: center;
-  gap: 30px;
+  margin-top: 30px;
+  text-align: center;
 `;
 const StyledIcon = styled.img`
   width: 200px;
