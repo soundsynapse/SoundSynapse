@@ -14,7 +14,7 @@ from requests_oauthlib import OAuth1Session
 import urllib.parse as parse
 from dotenv import load_dotenv
 import os
-
+from urllib.parse import urlencode,urlunparse
 load_dotenv()
 api_key = os.environ["TW_CLI_KEY"]
 api_secret = os.environ["TW_SCR_KEY"]
@@ -103,9 +103,15 @@ def callback():
     )
     db.commit()
 
-    #return {"userid": userid, "icon_url": icon_url, "name": name}
+    #session['user']={"userid": userid, "icon_url": icon_url, "name": name}
     # return redirect(url_for("index"))
-    return redirect('https://sound-synapse.vercel.app/event-list')
+    params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
+
+    # パラメータをURLに追加
+    redirect_url = urlunparse(('http', 'localhost:3000', '/event-list', '', params, ''))
+
+
+    return redirect(redirect_url)
 
 @bp.route("/login")
 def login():
