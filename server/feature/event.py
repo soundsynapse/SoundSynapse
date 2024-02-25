@@ -33,17 +33,10 @@ def get_event():
     cursor=db.cursor()
 
     cursor.execute(
-        'SELECT title FROM event '
+        'SELECT title,id FROM event '
     )
-    titles=cursor.fetchall()
+    results=cursor.fetchall()
 
-    titles=[title[0] for title in titles]
+    events = [{"id": result[0], "title": result[1]} for result in results]
 
-    cursor.execute(
-        'SELECT id FROM event '
-    )
-
-    ids=cursor.fetchall()
-    ids=[id[0] for id in ids]
-
-    return jsonify(titles,id=ids)
+    return jsonify(events)
