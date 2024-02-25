@@ -22,7 +22,7 @@ CREATE TABLE music(
     instrumentalness FLOAT,
     key INTEGER,
     liveness FLOAT,
-    loadness FLOAT,
+    loudness FLOAT,
     mode INTEGER,
     speechiness FLOAT,
     tempo FLOAT,
