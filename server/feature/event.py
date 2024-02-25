@@ -33,7 +33,7 @@ def get_event():
     cursor=db.cursor()
 
     cursor.execute(
-        'SELECT title,id FROM event '
+        'SELECT id,title FROM event '
     )
     results=cursor.fetchall()
 
