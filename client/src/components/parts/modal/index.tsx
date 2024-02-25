@@ -53,7 +53,7 @@ const Wrapper = styled.div`
   padding: 20px 30px;
   width: 500px;
   @media screen and (max-width: 950px) {
-    margin: 10px;
+    margin: 30px;
     margin-bottom: 100px;
   }
 `;

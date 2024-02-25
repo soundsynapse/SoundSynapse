@@ -72,7 +72,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: 800px) {
     flex-direction: column;
   }
 `;
