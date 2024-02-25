@@ -2,17 +2,13 @@ import styled from "styled-components";
 import { Button } from "../../parts/button";
 import humanIcon from "../../../image/humanIcon.png";
 
-type StartLayoutProps = {
-  onClickStartButton: () => void;
-};
-
-export const StartLayout = ({ onClickStartButton }: StartLayoutProps) => {
+export const StartLayout = () => {
   return (
     <Wrapper>
       <Icon src={humanIcon} alt="イヤホンをした人のイラスト" />
-      <ButtonWrapper>
-        <Button color="blue" text="はじめる" onClick={onClickStartButton} />
-      </ButtonWrapper>
+      <a href="https://soundsynapse-316201ce96e2.herokuapp.com/auth/twitter_login">
+        <Button color="blue" text="Xでログイン" onClick={() => console.log(" ")} />
+      </a>
     </Wrapper>
   );
 };

@@ -1,118 +1,39 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EventsListLayout } from "./layout";
 import { UserContext } from "../../../App";
 import { useContext, useEffect, useState } from "react";
 import { Data } from "../../parts/searchResult";
 
-const sampleEvent = [
-  {
-    name: "技育博",
-    id: "1",
-  },
-  {
-    name: "技育博2",
-    id: "2",
-  },
-  {
-    name: "技育博3",
-    id: "3",
-  },
-  {
-    name: "技育博4",
-    id: "4",
-  },
-  {
-    name: "技育博5",
-    id: "5",
-  },
-  {
-    name: "技育博6",
-    id: "6",
-  },
-  {
-    name: "技育博7",
-    id: "7",
-  },
-  {
-    name: "技育博8",
-    id: "8",
-  },
-  {
-    name: "技育博9",
-    id: "9",
-  },
-  {
-    name: "技育博10",
-    id: "10",
-  },
-  {
-    name: "技育博11",
-    id: "11",
-  },
-  {
-    name: "技育博12",
-    id: "12",
-  },
-  {
-    name: "技育博13",
-    id: "13",
-  },
-  {
-    name: "技育博14",
-    id: "14",
-  },
-  {
-    name: "技育博15",
-    id: "15",
-  },
-  {
-    name: "技育博16",
-    id: "16",
-  },
-  {
-    name: "技育博17",
-    id: "17",
-  },
-  {
-    name: "技育博18",
-    id: "18",
-  },
-  {
-    name: "技育博19",
-    id: "19",
-  },
-  {
-    name: "技育博20",
-    id: "20",
-  },
-  {
-    name: "技育博21",
-    id: "21",
-  },
-  {
-    name: "技育博22あああああああああああああああああ",
-    id: "22",
-  },
-];
-
 export const EventList = () => {
   const navigate = useNavigate();
-  const { userId, updateValue } = useContext(UserContext);
+  const { eventId, userId, iconURL, updateValue } = useContext(UserContext);
   const [event, setEvent] = useState<Data[]>([]);
 
+  const search = useLocation().search;
+  const query = new URLSearchParams(search);
+
   const getEvent = async () => {
-    // const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-    //   method: "GET",
-    //   mode: "cors",
-    // });
-    // const result = await res.json();
-    alert("イベント一覧を取得");
-    // setEvent(result)
-    setEvent(sampleEvent);
+    const res = await fetch(
+      `https://soundsynapse-316201ce96e2.herokuapp.com/event/get_event`,
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
+    const result = await res.json();
+    const resultItems: any = await result;
+    await setEvent(resultItems);
   };
 
   useEffect(() => {
     getEvent();
+    console.log(query.get("icon_url"));
+    if (query.get("icon_url") == undefined) return;
+    updateValue({
+      eventId: eventId,
+      userId: query.get("userid") || "",
+      iconURL: decodeURIComponent(query.get("icon_url") || ""),
+    });
   }, []);
 
   return (
@@ -121,9 +42,12 @@ export const EventList = () => {
       onClickEvent={(id) => {
         updateValue({
           eventId: id,
-          userId: userId,
+          userId: query.get("userid") ? query.get("userid") || "" : userId,
+          iconURL: query.get("icon_url")
+            ? decodeURIComponent(query.get("icon_url") || "")
+            : iconURL,
         });
-        navigate("/login");
+        navigate("/music-register");
       }}
       onClickCreateButton={() => navigate("/event-register")}
     />

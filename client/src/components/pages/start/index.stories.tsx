@@ -8,13 +8,10 @@ export default {
   component: StartLayout,
 };
 
-const Template: ComponentStory<typeof StartLayout> = (args) => (
-  <Frame>
-    <StartLayout {...args} />
-  </Frame>
-);
-
-export const Basic = Template.bind({});
-Basic.args = {
-  onClickStartButton: () => alert("登録画面に遷移"),
+export const Template = () => {
+  return (
+    <Frame>
+      <StartLayout />
+    </Frame>
+  );
 };

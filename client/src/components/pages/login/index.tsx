@@ -31,10 +31,10 @@ export const LoginView = () => {
       onClickBackButton={() => navigate("/event-list")}
       onClickAuthButton={() => onAuth()}
       onClickNextButton={(user) => {
-        updateValue({
-          userId: user.id,
-          eventId: eventId,
-        });
+        // updateValue({
+        //   userId: user.id,
+        //   eventId: eventId,
+        // });
         navigate("/music-register");
       }}
       onClickCancelButton={() => setUser(null)}

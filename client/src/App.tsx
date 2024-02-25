@@ -11,11 +11,13 @@ import { LoginView } from "./components/pages/login";
 type UserDataType = {
   eventId: string;
   userId: string;
+  iconURL: string;
 };
 
 export const UserContext = createContext({
   eventId: "",
   userId: "",
+  iconURL: "",
   updateValue: (newValue: UserDataType) => {},
 });
 
@@ -23,21 +25,23 @@ function App() {
   const [userData, setUserData] = useState({
     eventId: "",
     userId: "",
+    iconURL: "",
   });
 
   const updateValue = (newValue: UserDataType) => {
     setUserData(newValue);
   };
-
+  console.log(userData.iconURL);
   return (
     <UserContext.Provider
       value={{
         eventId: userData.eventId,
         userId: userData.userId,
+        iconURL: userData.iconURL,
         updateValue: updateValue,
       }}
     >
-      <Frame>
+      <Frame iconURL={userData.iconURL}>
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/event-list" element={<EventList />} />

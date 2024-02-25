@@ -4,11 +4,13 @@ import { EventRegisterLayout } from "./layout";
 export const EventRegister = () => {
   const navigate = useNavigate();
   const registerEvent = async (name: string) => {
-    // await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-    //   method: "POST",
-    //   mode: "cors",
-    // });
-    alert(`${name}をイベントAPIに投げる`);
+    await fetch(
+      `https://soundsynapse-316201ce96e2.herokuapp.com/event/create_event/${name}`,
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
     navigate("/event-list");
   };
 

@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { MusicCard } from "../../parts/musicCard";
 import { Button } from "../../parts/button";
+import { Timeline } from "react-twitter-widgets";
 
 type ResultLayoutProps = {
   name: string;
+  image: string;
   likeMusic: Data[];
   isLoading: boolean;
   xId: string;
@@ -15,6 +17,7 @@ type ResultLayoutProps = {
 
 export const ResultLayout = ({
   name,
+  image,
   likeMusic,
   isLoading,
   xId,
@@ -29,7 +32,11 @@ export const ResultLayout = ({
       ) : (
         <>
           <ImageWrapper>
-            <HiOutlineUserCircle color="white" size={"250px"} />
+            {image === "" ? (
+              <HiOutlineUserCircle color="white" size={"250px"} />
+            ) : (
+              <StyledIcon src={image} />
+            )}
           </ImageWrapper>
           <Text>
             {name}さんと
@@ -43,14 +50,16 @@ export const ResultLayout = ({
             ))}
           </MusicWrapper>
           <Text>{name}さんと会話を始めましょう♪</Text>
+          <Timeline
+            dataSource={{
+              sourceType: "profile",
+              screenName: xId, // アカウント名
+            }}
+            options={{
+              height: "800",
+            }}
+          />
           <ButtonWrapper>
-            <a href={`https://twitter.com/${xId}`}>
-              <Button
-                text={`${name}さんをフォローする`}
-                color="pink"
-                onClick={() => console.log("")}
-              />
-            </a>
             <Button
               text={"もう一度やり直す"}
               color="blue"
@@ -78,6 +87,7 @@ const Text = styled.h2`
   color: white;
   text-align: center;
   margin-bottom: 30px;
+  margin-top: 20px;
   @media screen and (max-width: 950px) {
     font-size: 27px;
     text-align: start;
@@ -101,7 +111,12 @@ const MusicWrapper = styled.div`
   }
 `;
 const ButtonWrapper = styled.div`
-  display: grid;
-  justify-items: center;
-  gap: 30px;
+  margin-top: 30px;
+  text-align: center;
+`;
+const StyledIcon = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
 `;
