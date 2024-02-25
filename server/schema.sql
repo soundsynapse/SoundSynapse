@@ -4,18 +4,17 @@ DROP TABLE IF EXISTS post CASCADE;
 
 CREATE TABLE username(
     id SERIAL PRIMARY KEY,
-    userid TEXT UNIQUE NOT NULL,
+    userid TEXT  NOT NULL,
     icon_url TEXT DEFAULT 'https://soco-st.com/wp-content/themes/socost/upload/18225_color.svg',
     name TEXT NOT NULL
 );
 
 CREATE TABLE oauth(
     id SERIAL PRIMARY KEY,
-    user_id INTEGER,
     identify_type TEXT NOT NULL,
     identifier TEXT NOT NULL,
     credential TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES username (id)
+    FOREIGN KEY (identifier) REFERENCES username (userid)
 );
 
 CREATE TABLE post(
