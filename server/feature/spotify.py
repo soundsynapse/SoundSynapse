@@ -5,6 +5,7 @@ from flask import Flask, Blueprint,request
 from dotenv import load_dotenv
 import requests
 from .db import get_db
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -19,7 +20,7 @@ client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 music = Blueprint("music", __name__, url_prefix="/music")
-
+CORS(music)
 
 @music.route("/artist/<string:artist>")
 def return_artist(artist):
@@ -42,7 +43,7 @@ def info_music(id):
     result = sp.audio_features(id)
     return result
 
-@music.route("/return_music/", methods=["POST"])
+@music.route("/return_music/", methods=["GET","POST"])
 def return_music():
     data = request.json
     music_ids = data["music"]
