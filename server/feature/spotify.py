@@ -108,9 +108,9 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
-    info_music(music_id1)
-    info_music(music_id2)
-    info_music(music_id3)
+    insert_info_music(music_id1)
+    insert_info_music(music_id2)
+    insert_info_music(music_id3)
 
     db = get_db()
     cursor = db.cursor()
