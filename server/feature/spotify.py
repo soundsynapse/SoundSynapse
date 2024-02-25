@@ -71,7 +71,7 @@ def insert_info_music(id):
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
 
-    cursor.execute(insert_sql, (id, acousticness, danceability, duration_ms, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence))
+    cursor.execute(insert_sql, ( acousticness, danceability, duration_ms, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence))
 
     db.commit()
 
