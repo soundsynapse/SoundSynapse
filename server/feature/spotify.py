@@ -49,6 +49,7 @@ def insert_info_music(id):
     cursor=db.cursor()
 
     music_info=info_music(id)
+    
     return music_info
 
 @music.route("/return_music/", methods=["POST"])

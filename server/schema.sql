@@ -16,7 +16,7 @@ CREATE TABLE music(
     danceability FLOAT,
     duration_ms INTEGER,
     energy FLOAT,
-    music_id: TEXT,
+    music_id TEXT,
     instrumentalness FLOAT,
     key INTEGER,
     liveness FLOAT,
