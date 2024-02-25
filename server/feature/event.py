@@ -39,4 +39,11 @@ def get_event():
 
     titles=[title[0] for title in titles]
 
-    return jsonify(titles)
+    cursor.execute(
+        'SELECT id FROM event '
+    )
+
+    ids=cursor.fetchall()
+    ids=[id[0] for id in ids]
+
+    return jsonify(titles,id=ids)
