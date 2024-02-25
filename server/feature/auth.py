@@ -91,7 +91,7 @@ def callback():
     )
     db.commit()
     #last_inserted_id = cur.lastrowid
-    db.execute(
+    cursor.execute(
         "INSERT INTO oauth (identify_type,identifier,credential) VALUES (%s,%s,%s)",
         ( "twitter", userid, access_token["oauth_token_secret"]),
     )
