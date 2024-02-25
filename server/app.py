@@ -9,7 +9,7 @@ load_dotenv()
 
 app = Flask(__name__, instance_relative_config=True)
 app.json.ensure_ascii = False
-CORS(app, origins=["http:"], methods=["GET", "POST"])
+CORS(app)
 
 app.config.from_mapping(
     SECRET_KEY="dev",
