@@ -1,7 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
-from flask import Flask, Blueprint,request
+from flask import Flask, Blueprint, request
 from dotenv import load_dotenv
 import requests
 from .db import get_db
@@ -23,6 +23,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 music = Blueprint("music", __name__, url_prefix="/music")
 CORS(music)
 
+
 @music.route("/artist/<string:artist>")
 def return_artist(artist):
     art_name = artist
@@ -38,44 +39,63 @@ def return_artist(artist):
             tra_id_name.append(dict)
     return tra_id_name
 
-@music.route("/info_music/<string:id>")
+
 def info_music(id):
     # ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
     result = sp.audio_features(id)
     return result
 
-@music.route("/insert_info_music/<string:id>")
+
 def insert_info_music(id):
-    db=get_db()
-    cursor=db.cursor()
+    db = get_db()
+    cursor = db.cursor()
 
-    music_info=info_music(id)
-    data_dict=music_info[0]
+    music_info = info_music(id)
+    data_dict = music_info[0]
 
-    acousticness = data_dict['acousticness']
-    danceability = data_dict['danceability']
-    duration_ms = data_dict['duration_ms']
-    energy = data_dict['energy']
-    instrumentalness = data_dict['instrumentalness']
-    key = data_dict['key']
-    liveness = data_dict['liveness']
-    loudness = data_dict['loudness']
-    mode = data_dict['mode']
-    speechiness = data_dict['speechiness']
-    tempo = data_dict['tempo']
-    time_signature = data_dict['time_signature']
-    valence = data_dict['valence']
+    acousticness = data_dict["acousticness"]
+    danceability = data_dict["danceability"]
+    duration_ms = data_dict["duration_ms"]
+    energy = data_dict["energy"]
+    instrumentalness = data_dict["instrumentalness"]
+    key = data_dict["key"]
+    liveness = data_dict["liveness"]
+    loudness = data_dict["loudness"]
+    mode = data_dict["mode"]
+    speechiness = data_dict["speechiness"]
+    tempo = data_dict["tempo"]
+    time_signature = data_dict["time_signature"]
+    valence = data_dict["valence"]
 
     insert_sql = """
-    INSERT INTO music (acousticness, danceability, duration_ms, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
+    INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
 
-    cursor.execute(insert_sql, ( acousticness, danceability, duration_ms, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence))
+    cursor.execute(
+        insert_sql,
+        (
+            acousticness,
+            danceability,
+            duration_ms,
+            energy,
+            id,
+            instrumentalness,
+            key,
+            liveness,
+            loudness,
+            mode,
+            speechiness,
+            tempo,
+            time_signature,
+            valence,
+        ),
+    )
 
     db.commit()
 
     return "insert ok!"
+
 
 @music.route("/return_music/", methods=["POST"])
 def return_music():
@@ -88,16 +108,16 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
-    music_info1=info_music(music_id1)
-    music_info2=info_music(music_id2)
-    music_info3=info_music(music_id3)
+    info_music(music_id1)
+    info_music(music_id2)
+    info_music(music_id3)
 
     db = get_db()
     cursor = db.cursor()
-    
+
     cursor.execute(
-        'UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s WHERE userid = %s',
-        (event_id, music_id1, music_id2, music_id3, user_id)
+        "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s WHERE userid = %s",
+        (event_id, music_id1, music_id2, music_id3, user_id),
     )
     db.commit()
     return "ok"
