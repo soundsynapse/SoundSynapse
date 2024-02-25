@@ -47,22 +47,22 @@ def info_music(id):
 def return_music():
     data = request.get_json()
     music_ids = data["music"]
-    id=data["userid"]
-    event_id=data["eventid"]
+    user_id = data["userid"]  # Assuming this is the user ID
+    event_id = data["eventid"]
 
-    music_id1=int(music_ids[0])
-    music_id2=int(music_ids[1])
-    music_id3=int(music_ids[2])
+    music_id1 = int(music_ids[0])
+    music_id2 = int(music_ids[1])
+    music_id3 = int(music_ids[2])
 
     db = get_db()
     cursor = db.cursor()
+    
     cursor.execute(
-        'INSERT INTO username (event_id,music_id1,music_id2,music_id3) VALUES (%s,%s,%s,%s)',
-        (event_id,music_id1,music_id2,music_id3)
+        'UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s WHERE userid = %s',
+        (event_id, music_id1, music_id2, music_id3, user_id)
     )
     db.commit()
     return "ok"
-
 @music.route("/test", methods=["POST"])
 def test():
     data = request.get_json()
