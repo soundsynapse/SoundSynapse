@@ -2,6 +2,9 @@ DROP TABLE IF EXISTS username CASCADE;
 DROP TABLE IF EXISTS oauth CASCADE;
 DROP TABLE IF EXISTS post CASCADE;
 DROP TABLE IF EXISTS event CASCADE;
+DROP TABLE IF EXISTS music CASCADE;
+DROP TABLE IF EXISTS post CASCADE;
+DROP TABLE IF EXISTS test CASCADE;
 
 CREATE TABLE event(
     id SERIAL PRIMARY KEY,
@@ -12,7 +15,6 @@ CREATE TABLE event(
 
 CREATE TABLE music(
     acousticness FLOAT,
-    analysis_url TEXT,
     danceability FLOAT,
     duration_ms INTEGER,
     energy FLOAT,
@@ -21,13 +23,10 @@ CREATE TABLE music(
     key INTEGER,
     liveness FLOAT,
     loadness FLOAT,
-    model INTEGER,
+    mode INTEGER,
     speechiness FLOAT,
     tempo FLOAT,
     time_signature INTEGER,
-    track_href TEXT,
-    type TEXT,
-    uri TEXT,
     valance FLOAT
 );
 
