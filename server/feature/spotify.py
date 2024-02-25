@@ -43,6 +43,14 @@ def info_music(id):
     result = sp.audio_features(id)
     return result
 
+@music.route("/insert_info_music/<string:id>")
+def insert_info_music(id):
+    db=get_db()
+    cursor=db.cursor()
+
+    music_info=info_music(id)
+    return music_info
+
 @music.route("/return_music/", methods=["POST"])
 def return_music():
     data = request.get_json()
@@ -54,6 +62,10 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
+    music_info1=info_music(music_id1)
+    music_info2=info_music(music_id2)
+    music_info3=info_music(music_id3)
+
     db = get_db()
     cursor = db.cursor()
     
@@ -63,16 +75,3 @@ def return_music():
     )
     db.commit()
     return "ok"
-@music.route("/test", methods=["POST"])
-def test():
-    data = request.get_json()
-    db=get_db()
-    cursor=db.cursor()
-    cursor.execute(
-        'INSERT INTO test (test) VALUES (%s)',
-        (data["test"],)
-    )   
-    db.commit()
-    print(data)
-    return "ok"
-
