@@ -1,12 +1,12 @@
 Flask==2.3.3
-# Werkzeug==2.3.7
-# openai
-# flask_sqlalchemy
-# psycopg2-binary
-# pandas
-# numpy==1.22.2
-# scikit-learn==0.24.2
-# google-generativeai
+Werkzeug==2.3.7
+openai
+flask_sqlalchemy
+psycopg2-binary
+pandas
+numpy==1.22.2
+scikit-learn==0.24.2
+google-generativeai
 python-dotenv
 spotipy 
 flask_cors

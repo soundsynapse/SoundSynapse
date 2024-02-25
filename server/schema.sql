@@ -10,9 +10,26 @@ CREATE TABLE event(
     body TEXT 
 );
 
-CREATE TABLE test(
+CREATE TABLE music(
     id SERIAL PRIMARY KEY,
-    TEST TEXT
+    acousticness FLOAT,
+    analysis_url TEXT,
+    danceability FLOAT,
+    duration_ms INTEGER,
+    energy FLOAT,
+    music_id: TEXT,
+    instrumentalness FLOAT,
+    key INTEGER,
+    liveness FLOAT,
+    loadness FLOAT,
+    model INTEGER,
+    speechiness FLOAT,
+    tempo FLOAT,
+    time_signature INTEGER,
+    track_href TEXT,
+    type TEXT,
+    uri TEXT,
+    valance FLOAT
 );
 
 CREATE TABLE username(

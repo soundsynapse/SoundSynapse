@@ -122,7 +122,7 @@ def callback():
     params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
     # パラメータをURLに追加
     redirect_url = urlunparse(
-        ("http", "localhost:3000", "/event-list", "", params, "")
+        ("https", "sound-synapse.vercel.app", "/event-list", "", params, "")
     )
     return redirect(redirect_url)
 

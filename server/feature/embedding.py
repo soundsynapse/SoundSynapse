@@ -4,7 +4,7 @@ import json
 import os
 import numpy as np
 import pandas as pd
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify
 api_key = os.environ.get("OPEN_AI_KEY")
 client = OpenAI(api_key=api_key)
 
