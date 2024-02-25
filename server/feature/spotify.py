@@ -3,8 +3,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import os
 from flask import Flask, Blueprint
 
-client_id = os.environ.get("SP_CLI_KEY")
-client_secret = os.environ.get("SP_SCR_KEY")
+client_id = os.environ["SP_CLI_KEY"]
+client_secret = os.environ["SP_SCR_KEY"]
 client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(
     client_id, client_secret
 )
@@ -26,7 +26,7 @@ def return_artist(artist):
         for track_num, track in enumerate(tracks):
             dict = {"name": track["name"], "id": track["id"]}
             tra_id_name.append(dict)
-
+    return tra_id_name
 
 @music.route("/info_music/<string:id>")
 def info_music(id):
