@@ -19,6 +19,9 @@ load_dotenv()
 api_key = os.environ["TW_CLI_KEY"]
 api_secret = os.environ["TW_SCR_KEY"]
 
+# api_key = os.environ.get("TW_CLI_KEY")
+# api_secret = os.environ.get("TW_SCR_KEY")
+
 # Twitter Endpoint
 twitter_base_url = "https://api.twitter.com"
 authorization_endpoint = twitter_base_url + "/oauth/authenticate"
@@ -83,12 +86,15 @@ def callback():
     icon_url = user_info["profile_image_url_https"]
     name = user_info["name"]
 
+    session['user_id']=userid
     cursor = db.cursor()
-
-    cur = cursor.execute(
-        "INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)",
-        (userid, icon_url, name),
-    )
+    try:
+        cur = cursor.execute(
+            "INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)",
+            (userid, icon_url, name),
+        )
+    except:
+        return "username is already exist."
     db.commit()
     #last_inserted_id = cur.lastrowid
     cursor.execute(
@@ -97,9 +103,16 @@ def callback():
     )
     db.commit()
 
-    return {"userid": userid, "icon_url": icon_url, "name": name}
+    #return {"userid": userid, "icon_url": icon_url, "name": name}
     # return redirect(url_for("index"))
+    return redirect('http://localhost:3000/event-list')
 
+@bp.route("/login")
+def login():
+    userid=session.get("user_id")
+    if userid is None:
+        return "login required."
+    return userid
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -128,7 +141,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for("auth.login"))
+            return "login required."
         return view(**kwargs)
 
     return wrapped_view

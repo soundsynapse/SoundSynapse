@@ -1,12 +1,22 @@
 DROP TABLE IF EXISTS username CASCADE;
 DROP TABLE IF EXISTS oauth CASCADE;
 DROP TABLE IF EXISTS post CASCADE;
+DROP TABLE IF EXISTS event CASCADE;
+
+CREATE TABLE event(
+    id SERIAL PRIMARY KEY,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title TEXT UNIQUE NOT NULL,
+    body TEXT 
+);
 
 CREATE TABLE username(
     id SERIAL PRIMARY KEY,
     userid TEXT UNIQUE NOT NULL,
     icon_url TEXT DEFAULT 'https://soco-st.com/wp-content/themes/socost/upload/18225_color.svg',
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    event TEXT,
+    FOREIGN KEY (event) REFERENCES event (title)
 );
 
 CREATE TABLE oauth(
@@ -15,13 +25,4 @@ CREATE TABLE oauth(
     identifier TEXT NOT NULL,
     credential TEXT NOT NULL,
     FOREIGN KEY (identifier) REFERENCES username (userid)
-);
-
-CREATE TABLE post(
-    id SERIAL PRIMARY KEY,
-    author_id INTEGER NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title TEXT NOT NULL,
-    body TEXT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES username (id)
 );
