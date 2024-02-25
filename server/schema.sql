@@ -11,7 +11,6 @@ CREATE TABLE event(
 );
 
 CREATE TABLE music(
-    id SERIAL PRIMARY KEY,
     acousticness FLOAT,
     analysis_url TEXT,
     danceability FLOAT,
