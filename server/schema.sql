@@ -27,7 +27,7 @@ CREATE TABLE music(
     speechiness FLOAT,
     tempo FLOAT,
     time_signature INTEGER,
-    valance FLOAT
+    valence FLOAT
 );
 
 CREATE TABLE username(
