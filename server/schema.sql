@@ -10,6 +10,11 @@ CREATE TABLE event(
     body TEXT 
 );
 
+CREATE TABLE test(
+    id SERIAL PRIMARY KEY,
+    TEST TEXT
+);
+
 CREATE TABLE username(
     id SERIAL PRIMARY KEY,
     userid TEXT UNIQUE NOT NULL,
