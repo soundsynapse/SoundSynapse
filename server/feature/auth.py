@@ -14,7 +14,8 @@ from requests_oauthlib import OAuth1Session
 import urllib.parse as parse
 from dotenv import load_dotenv
 import os
-from urllib.parse import urlencode,urlunparse
+from urllib.parse import urlencode, urlunparse
+
 load_dotenv()
 api_key = os.environ["TW_CLI_KEY"]
 api_secret = os.environ["TW_SCR_KEY"]
@@ -86,39 +87,48 @@ def callback():
     icon_url = user_info["profile_image_url_https"]
     name = user_info["name"]
 
-    #session['user_id']=userid
+    # session['user_id']=userid
     cursor = db.cursor()
-    try:
-        cur = cursor.execute(
+
+    cursor.execute("SELECT * FROM oauth WHERE identifier=%s", (userid,))
+    result = cursor.fetchone()
+    if result is None:
+
+        cursor.execute(
             "INSERT INTO username (userid,icon_url,name) VALUES (%s,%s,%s)",
             (userid, icon_url, name),
         )
-    except:
-        return "username is already exist."
-    db.commit()
-    #last_inserted_id = cur.lastrowid
-    cursor.execute(
-        "INSERT INTO oauth (identify_type,identifier,credential) VALUES (%s,%s,%s)",
-        ( "twitter", userid, access_token["oauth_token_secret"]),
-    )
-    db.commit()
 
-    #session['user']={"userid": userid, "icon_url": icon_url, "name": name}
-    # return redirect(url_for("index"))
-    params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
+        db.commit()
+        # last_inserted_id = cur.lastrowid
+        cursor.execute(
+            "INSERT INTO oauth (identify_type,identifier,credential) VALUES (%s,%s,%s)",
+            ("twitter", userid, access_token["oauth_token_secret"]),
+        )
+        db.commit()
 
-    # パラメータをURLに追加
-    redirect_url = urlunparse(('http', 'localhost:3000', '/event-list', '', params, ''))
+        # session['user']={"userid": userid, "icon_url": icon_url, "name": name}
+        # return redirect(url_for("index"))
+        params = urlencode({"userid": userid, "icon_url": icon_url, "name": name})
+
+        # パラメータをURLに追加
+        redirect_url = urlunparse(
+            ("http", "localhost:3000", "/event-list", "", params, "")
+        )
+        return redirect(redirect_url)
+
+    else:
+        return "already exists."
 
 
-    return redirect(redirect_url)
 
 @bp.route("/login")
 def login():
-    userid=session.get("user_id")
+    userid = session.get("user_id")
     if userid is None:
         return "login required."
     return userid
+
 
 # @bp.before_app_request
 # def load_logged_in_user():
