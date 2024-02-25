@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://geek1.onrender.com/",
+  "proxy": "https://soundsynapse-316201ce96e2.herokuapp.com/",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -24,8 +24,8 @@
     "styled-components": "^6.1.8",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
-    "chalk":"latest",
-    "common-tags":"latest"
+    "chalk": "latest",
+    "common-tags": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

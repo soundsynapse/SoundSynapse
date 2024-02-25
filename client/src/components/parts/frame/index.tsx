@@ -3,16 +3,20 @@ import styled from "styled-components";
 
 type FrameProps = {
   children: ReactNode;
+  iconURL?: string;
 };
 
-export const Frame = ({ children }: FrameProps) => {
+export const Frame = ({ children, iconURL }: FrameProps) => {
   return (
     <Wrapper>
-      <TitleText className="title-text">
-        お気に入りの音楽で
-        <br />
-        新しい出会いを
-      </TitleText>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <TitleText className="title-text">
+          お気に入りの音楽で
+          <br />
+          新しい出会いを
+        </TitleText>
+        {iconURL && <StyledIcon src={iconURL} />}
+      </div>
       {children}
     </Wrapper>
   );
@@ -30,4 +34,10 @@ const TitleText = styled.div`
   margin: 0;
   color: white;
   margin-bottom: 100px;
+`;
+const StyledIcon = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
 `;
