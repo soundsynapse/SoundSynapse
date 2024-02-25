@@ -15,3 +15,4 @@ requests-oauthlib
 gunicorn
 psycopg2-binary
 flask_session
+urllib
