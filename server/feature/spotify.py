@@ -65,7 +65,7 @@ def return_music():
 
 @music.route("/test", methods=["POST"])
 def test():
-    data = request.json
+    data = request.get_json()
     db=get_db()
     cursor=db.cursor()
     cursor.execute(
