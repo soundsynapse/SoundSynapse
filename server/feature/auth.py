@@ -105,7 +105,7 @@ def callback():
 
     #return {"userid": userid, "icon_url": icon_url, "name": name}
     # return redirect(url_for("index"))
-    return redirect('http://localhost:3000/event-list')
+    return redirect('https://sound-synapse.vercel.app/event-list')
 
 @bp.route("/login")
 def login():
