@@ -54,4 +54,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 70px;
+  @media screen and (max-width: 950px) {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
 `;

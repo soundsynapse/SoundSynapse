@@ -146,18 +146,31 @@ export const MusicRegisterLayout = ({
 
 const Wrapper = styled.div`
   display: grid;
-  display: grid;
   justify-items: center;
   gap: 30px;
+  @media screen and (max-width: 950px) {
+    justify-content: space-around;
+  }
 `;
 const InputWrapper = styled.div`
   display: flex;
+  justify-content: center;
   gap: 20px;
   margin-left: 70px;
+  @media screen and (max-width: 950px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 180px;
+    margin-left: 100px;
+  }
 `;
 const CardWrapper = styled.div`
   display: flex;
   gap: 20px;
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 const ButtonWrapper = styled.div`
   margin-left: auto;

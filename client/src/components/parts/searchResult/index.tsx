@@ -30,6 +30,9 @@ const Text = styled.div`
   cursor: pointer;
   width: 440px;
   font-weight: 700;
+  @media screen and (max-width: 950px) {
+    width: 200px;
+  }
 
   &:last-child {
     border-bottom-left-radius: 24px;

@@ -25,6 +25,9 @@ const Wrapper = styled.button<{ color: "blue" | "pink" }>`
   color: ${({ color }) => (color === "blue" ? "#8002db" : "#ff13d3")};
   cursor: pointer;
   transition: ease 0.2s;
+  @media screen and (max-width: 950px) {
+    font-size: 20px;
+  }
 
   &:hover {
     background-position: right center;
