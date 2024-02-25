@@ -8,6 +8,9 @@ load_dotenv()
 
 client_id = os.environ["SP_CLI_KEY"]
 client_secret = os.environ["SP_SCR_KEY"]
+
+# client_id = os.environ.get("SP_CLI_KEY")
+# client_secret = os.environ.get("SP_SCR_KEY")
 client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(
     client_id, client_secret
 )
