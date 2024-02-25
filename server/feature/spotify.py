@@ -62,5 +62,8 @@ def return_music():
     )
     db.commit()
 
-
+@music.route("/test", methods=["POST"])
+def test():
+    data = request.json
+    print(data)
 
