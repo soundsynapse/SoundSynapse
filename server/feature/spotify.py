@@ -111,7 +111,7 @@ def insert_info_music(id, user_id):
         ),
     )
 
-    cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (vector, user_id))
+    #cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (vector, user_id))
     db.commit()
 
     return "insert ok!"
