@@ -116,4 +116,9 @@ const StyledIcon = styled.img`
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
+  @media screen and (max-width: 950px) {
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+  }
 `;

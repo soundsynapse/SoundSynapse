@@ -21,4 +21,7 @@ const Wrapper = styled.button`
   height: 50px;
   padding-top: 5px;
   cursor: pointer;
+  @media screen and (max-width: 800px) {
+    margin-left: auto;
+  }
 `;

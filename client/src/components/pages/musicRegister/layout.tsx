@@ -146,19 +146,15 @@ export const MusicRegisterLayout = ({
 
 const Wrapper = styled.div`
   display: grid;
-  justify-items: center;
   gap: 30px;
+  justify-content: center;
 `;
 const InputWrapper = styled.div`
-  display: flex;
-  //justify-content: center;
+  margin: auto;
   gap: 20px;
-  margin-left: 70px;
-  @media screen and (max-width: 800px) {
-    flex-direction: column;
-    align-items: flex-end;
-    margin-left: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 const CardWrapper = styled.div`
   display: flex;
