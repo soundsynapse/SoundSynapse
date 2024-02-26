@@ -47,7 +47,7 @@ def info_music(id):
     return result
 
 
-def insert_info_music(id,user_id):
+def insert_info_music(id, user_id):
     db = get_db()
     cursor = db.cursor()
 
@@ -68,7 +68,23 @@ def insert_info_music(id,user_id):
     time_signature = data_dict["time_signature"]
     valence = data_dict["valence"]
 
-    vector=np.array([acousticness,danceability,duration_ms,energy,instrumentalness,key,liveness,loudness,mode,speechiness,tempo,time_signature,valence])
+    vector = np.array(
+        [
+            float(acousticness),
+            float(danceability),
+            float(duration_ms),
+            float(energy),
+            float(instrumentalness),
+            float(key),
+            float(liveness),
+            float(loudness),
+            float(mode),
+            float(speechiness),
+            float(tempo),
+            float(time_signature),
+            float(valence),
+        ]
+    )
 
     insert_sql = """
     INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
@@ -95,10 +111,7 @@ def insert_info_music(id,user_id):
         ),
     )
 
-    cursor.execute(
-        'UPDATE username SET vector=%s WHERE userid=%s',
-        (vector,user_id)
-    )
+    cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (vector, user_id))
     db.commit()
 
     return "insert ok!"
@@ -115,9 +128,9 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
-    insert_info_music(music_id1,user_id)
-    insert_info_music(music_id2,user_id)
-    insert_info_music(music_id3,user_id)
+    insert_info_music(music_id1, user_id)
+    insert_info_music(music_id2, user_id)
+    insert_info_music(music_id3, user_id)
 
     db = get_db()
     cursor = db.cursor()
