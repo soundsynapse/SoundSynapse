@@ -125,7 +125,5 @@ const PaginationWrapper = styled.div`
   justify-content: center;
 `;
 const ResultWrapper = styled.div`
-  display: grid;
-  justify-items: center;
   margin-top: 20px;
 `;

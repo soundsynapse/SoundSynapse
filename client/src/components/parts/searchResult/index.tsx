@@ -30,6 +30,7 @@ const Text = styled.div`
   cursor: pointer;
   max-width: 440px;
   font-weight: 700;
+  margin: auto;
 
   &:last-child {
     border-bottom-left-radius: 24px;

@@ -32,7 +32,11 @@ const StyledInput = styled.input`
   width: 440px;
   font-size: 24px;
   font-weight: 700;
+  margin: auto;
   @media screen and (max-width: 600px) {
+    width: 320px;
+  }
+  @media screen and (max-width: 450px) {
     width: 220px;
   }
 
