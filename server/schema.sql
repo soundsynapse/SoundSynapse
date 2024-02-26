@@ -39,6 +39,7 @@ CREATE TABLE username(
     music_id1 TEXT,
     music_id2 TEXT,
     music_id3 TEXT,
+    vector INTEGER,
     FOREIGN KEY (event_id) REFERENCES event (id)
 );
 

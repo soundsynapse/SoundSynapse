@@ -10,15 +10,7 @@ from .db import get_db
 api_key = os.environ.get("OPEN_AI_KEY")
 client = OpenAI(api_key=api_key)
 
-ai=Blueprint("embedding",__name__,url_prefix="/ai")
-
-@ai.route("/test")
-def test():
-    db=get_db()
-    cursor=db.cursor()
-    cursor.execute(
-        
-    )
+ai = Blueprint("embedding", __name__, url_prefix="/ai")
 
 
 def get_embedding(text, model="text-embedding-ada-002"):
@@ -76,3 +68,14 @@ def get_recommendations(recommendations):
         )
 
     return jsonify(recommendations)
+
+
+@ai.route("/test")
+def test():
+    db=get_db()
+    cursor=db.cursor()
+
+    cursor.execute(
+        ""
+    )
+    
