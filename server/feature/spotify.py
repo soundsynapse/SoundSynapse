@@ -7,6 +7,7 @@ import requests
 from .db import get_db
 from flask_cors import CORS
 import json
+import numpy as np
 
 load_dotenv()
 
@@ -46,7 +47,7 @@ def info_music(id):
     return result
 
 
-def insert_info_music(id):
+def insert_info_music(id,user_id):
     db = get_db()
     cursor = db.cursor()
 
@@ -66,6 +67,8 @@ def insert_info_music(id):
     tempo = data_dict["tempo"]
     time_signature = data_dict["time_signature"]
     valence = data_dict["valence"]
+
+    vector=np.array([acousticness,danceability,duration_ms,energy,instrumentalness,key,liveness,loudness,mode,speechiness,tempo,time_signature,valence])
 
     insert_sql = """
     INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
@@ -92,6 +95,10 @@ def insert_info_music(id):
         ),
     )
 
+    cursor.execute(
+        'UPDATE username SET vector=%s WHERE userid=%s',
+        (vector,user_id)
+    )
     db.commit()
 
     return "insert ok!"
@@ -108,9 +115,9 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
-    insert_info_music(music_id1)
-    insert_info_music(music_id2)
-    insert_info_music(music_id3)
+    insert_info_music(music_id1,user_id)
+    insert_info_music(music_id2,user_id)
+    insert_info_music(music_id3,user_id)
 
     db = get_db()
     cursor = db.cursor()
