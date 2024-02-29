@@ -64,7 +64,7 @@ export const Result = () => {
       likeMusic={data.likeMusic}
       isLoading={isLoading}
       xId={data.xId}
-      onClickBackButton={() => navigate("/music-register")}
+      onClickBackButton={() => navigate("/")}
       image={data.image}
     />
   );
