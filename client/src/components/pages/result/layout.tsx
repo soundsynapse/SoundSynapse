@@ -65,6 +65,17 @@ export const ResultLayout = ({
               color="blue"
               onClick={onClickBackButton}
             />
+            <MusicText className="music-text">
+              よろしければアンケートの回答にご協力ください！
+            </MusicText>
+            <Button
+              text={"アンケート"}
+              color={"pink"}
+              onClick={() =>
+                (window.location.href =
+                  "https://docs.google.com/forms/d/e/1FAIpQLSfNJzMP9Y7L6Al3mvb4rPISxq04yl6W-xirQrgYgEo0EJfWdQ/viewform?usp=sf_link")
+              }
+            />
           </ButtonWrapper>
         </>
       )}

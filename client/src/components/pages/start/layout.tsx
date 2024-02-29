@@ -6,16 +6,16 @@ export const StartLayout = () => {
   return (
     <Wrapper>
       <Icon src={humanIcon} alt="イヤホンをした人のイラスト" />
-      <a
-        style={{ marginTop: "200px" }}
-        href="https://soundsynapse-316201ce96e2.herokuapp.com/auth/twitter_login"
-      >
+      <div style={{ marginTop: "200px" }}>
         <Button
           color="blue"
           text="Xでログイン"
-          onClick={() => console.log(" ")}
+          onClick={() =>
+            (window.location.href =
+              "https://soundsynapse-316201ce96e2.herokuapp.com/auth/twitter_login")
+          }
         />
-      </a>
+      </div>
     </Wrapper>
   );
 };
@@ -27,11 +27,6 @@ const Wrapper = styled.div`
   align-items: flex-end;
 `;
 
-const ButtonWrapper = styled.div`
-  @media screen and (max-width: 650px) {
-    margin-top: 200px;
-  }
-`;
 const Icon = styled.img`
   scale: 0.8;
   margin-left: auto;
