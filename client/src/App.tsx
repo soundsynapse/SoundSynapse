@@ -31,7 +31,7 @@ function App() {
   const updateValue = (newValue: UserDataType) => {
     setUserData(newValue);
   };
-  console.log(userData.iconURL);
+
   return (
     <UserContext.Provider
       value={{
@@ -41,7 +41,10 @@ function App() {
         updateValue: updateValue,
       }}
     >
-      <Frame iconURL={userData.iconURL}>
+      <Frame
+        iconURL={userData.iconURL}
+        isStart={window.location.href === "https://sound-synapse.vercel.app/"}
+      >
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/event-list" element={<EventList />} />
