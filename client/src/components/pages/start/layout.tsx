@@ -6,7 +6,7 @@ export const StartLayout = () => {
   return (
     <Wrapper>
       <Icon src={humanIcon} alt="イヤホンをした人のイラスト" />
-      <div style={{ marginTop: "200px" }}>
+      <div style={{ marginTop: "150px" }}>
         <Button
           color="blue"
           text="Xでログイン"
@@ -31,7 +31,7 @@ const Icon = styled.img`
   scale: 0.8;
   margin-left: auto;
   margin-right: 10%;
-  margin-top: -250px;
+  margin-top: -370px;
   @media screen and (max-width: 900px) {
     display: none;
   }

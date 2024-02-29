@@ -4,9 +4,10 @@ import styled from "styled-components";
 type FrameProps = {
   children: ReactNode;
   iconURL?: string;
+  isStart?: boolean;
 };
 
-export const Frame = ({ children, iconURL }: FrameProps) => {
+export const Frame = ({ children, iconURL, isStart = false }: FrameProps) => {
   return (
     <Wrapper>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -17,6 +18,13 @@ export const Frame = ({ children, iconURL }: FrameProps) => {
         </TitleText>
         {iconURL && <StyledIcon src={iconURL} />}
       </div>
+      {isStart && (
+        <h2 className="app-name">
+          Sound
+          <br />
+          Synapse
+        </h2>
+      )}
       {children}
     </Wrapper>
   );
