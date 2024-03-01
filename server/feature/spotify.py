@@ -140,8 +140,8 @@ def matching(event_id, average):
     )
     vectors = cursor.fetchall()
 
-    min = min(vectors, key=lambda x: abs(x[[0]] - average))
-    return min
+    closest = min(vectors, key=lambda x: abs(x[[0]] - average))
+    return closest
 
 
 @music.route("/artist/<string:artist>")
@@ -272,7 +272,7 @@ def return_music():
     )
     db.commit()
 
-    match_music = matching(event_id, average)
-    print (match_music)
+    closest = matching(event_id, average)
+    print (closest)
     # Matching_music(music_id1, music_id2, music_id3)
     return "ok"
