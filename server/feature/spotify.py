@@ -72,12 +72,12 @@ def Matching_music(music1, music2, music3):
 
 def Matching_music_test():
 
-    db = get_db()
-    cursor = db.cursor()
+    # db = get_db()
+    # cursor = db.cursor()
 
-    wait_seconds=2
-    #cursor.execute("SELECT * FROM music WHERE music_id = %s", (music1,))
-    music1_data = cursor.fetchone()
+    # wait_seconds=2
+    # #cursor.execute("SELECT * FROM music WHERE music_id = %s", (music1,))
+    # music1_data = cursor.fetchone()
     embedding_test=get_embedding_batch("つかれたよーん")
     # cursor.execute("SELECT * FROM music WHERE music_id = %s", (music2,))
     # music2_data = cursor.fetchone()
