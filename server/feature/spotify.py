@@ -244,7 +244,7 @@ def return_music():
 
     cursor.execute(
         "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
-        (event_id, music_id1, music_id2, music_id3, user_id, average),
+        (event_id, music_id1, music_id2, music_id3, average,user_id, ),
     )
     db.commit()
 
