@@ -245,7 +245,7 @@ def insert_info_music(id):
 @music.route("/return_music/<string:userid>/<string:event_id>/<string:music_id1>/<string:music_id2>/<string:music_id3>")
 def return_music(userid,event_id,music_id1,music_id2,music_id3):
     ave_index = 3
-    user_id = userid  # Assuming this is the user ID
+    userid = userid  # Assuming this is the user ID
     name = name
     icon_url = icon_url
     event_id = int(event_id)
@@ -264,7 +264,7 @@ def return_music(userid,event_id,music_id1,music_id2,music_id3):
     cursor.execute(
         "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
         (
-            user_id,
+            userid,
             name,
             icon_url,
             music_id1,
@@ -274,7 +274,7 @@ def return_music(userid,event_id,music_id1,music_id2,music_id3):
     )
     db.commit()
 
-    matching_result = matching(user_id,name,icon_url,music_id1,music_id2,music_id3)
+    matching_result = matching(userid,name,icon_url,music_id1,music_id2,music_id3,average)
     #print(closest)
     # Matching_music(music_id1, music_id2, music_id3)
     #waiwai
