@@ -32,8 +32,9 @@ ai = Blueprint("embedding", __name__, url_prefix="/ai")
 def get_embedding_batch(texts, model="text-embedding-3-small"):
     data = {"input": texts, "model": model}
     response = openai.Embedding.create(**data)  # 展開して引数として渡す
-    embeddings = [embedding['embedding'] for embedding in response['data']]
+    embeddings = [embedding["embedding"] for embedding in response["data"]]
     return embeddings
+
 
 # 変更点: 数値属性をテキスト説明に変換する関数を追加
 def convert_music_data_to_text(music_data):
@@ -211,18 +212,19 @@ def insert_info_music(id, user_id):
             speechiness,
             tempo,
             time_signature,
-            valence
+            valence,
         ),
     )
 
-    cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (average, user_id))
+    # cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (average, user_id))
     db.commit()
 
-    return "insert ok!"
+    return average
 
 
 @music.route("/return_music/", methods=["POST"])
 def return_music():
+    ave_index = 3
     data = request.get_json()
     music_ids = data["music"]
     user_id = data["userid"]  # Assuming this is the user ID
@@ -232,16 +234,17 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
-    insert_info_music(music_id1, user_id)
-    insert_info_music(music_id2, user_id)
-    insert_info_music(music_id3, user_id)
+    ave1 = insert_info_music(music_id1, user_id)
+    ave2 = insert_info_music(music_id2, user_id)
+    ave3 = insert_info_music(music_id3, user_id)
+    average = (ave1 + ave2 + ave3) / ave_index
 
     db = get_db()
     cursor = db.cursor()
 
     cursor.execute(
-        "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s WHERE userid = %s",
-        (event_id, music_id1, music_id2, music_id3, user_id),
+        "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
+        (event_id, music_id1, music_id2, music_id3, user_id, average),
     )
     db.commit()
 
