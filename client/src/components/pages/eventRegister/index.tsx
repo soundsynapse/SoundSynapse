@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { EventRegisterLayout } from "./layout";
+import { Frame } from "../../parts/frame";
+import { UserContext } from "../../../App";
+import { useContext } from "react";
 
 export const EventRegister = () => {
+  const { iconURL } = useContext(UserContext);
   const navigate = useNavigate();
   const registerEvent = async (name: string) => {
     await fetch(
@@ -15,9 +19,11 @@ export const EventRegister = () => {
   };
 
   return (
-    <EventRegisterLayout
-      onClickBackButton={() => navigate("/event-list")}
-      onClickRegisterButton={(name) => registerEvent(name)}
-    />
+    <Frame iconURL={iconURL} isStart={false}>
+      <EventRegisterLayout
+        onClickBackButton={() => navigate("/event-list")}
+        onClickRegisterButton={(name) => registerEvent(name)}
+      />
+    </Frame>
   );
 };

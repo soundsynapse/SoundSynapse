@@ -43,7 +43,7 @@ export const MusicRegisterLayout = ({
   return (
     <Wrapper>
       <Text>
-        お気に入りの曲を登録しよう♪
+        お気に入りの曲を3曲登録しよう♪
         <br />
         アーティスト名で検索してください♪
       </Text>
@@ -113,7 +113,7 @@ export const MusicRegisterLayout = ({
           text={"次へ"}
           color={"pink"}
           onClick={() => {
-            selectedMusic.length === 0
+            selectedMusic.length !== 3
               ? setModal("nonMusic")
               : setModal("confirm");
           }}
@@ -127,7 +127,7 @@ export const MusicRegisterLayout = ({
               : modal === "music"
               ? "登録できる楽曲は3曲までです"
               : modal === "nonMusic"
-              ? "楽曲を登録してください"
+              ? "楽曲を3曲登録してください"
               : `${selectedMusic.map(
                   (music) => `「${music.name}」`
                 )}を登録します、よろしいでしょうか`

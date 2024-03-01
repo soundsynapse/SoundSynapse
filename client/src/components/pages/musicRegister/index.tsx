@@ -3,10 +3,11 @@ import { MusicRegisterLayout } from "./layout";
 import { Data } from "../../parts/searchResult";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../App";
+import { Frame } from "../../parts/frame";
 
 export const MusicRegister = () => {
   const [searchResult, setSearchResult] = useState<Data[]>([]);
-  const { userId, eventId } = useContext(UserContext);
+  const { userId, eventId, iconURL } = useContext(UserContext);
   const navigate = useNavigate();
 
   const getMusic = async (searchWord: string) => {
@@ -49,12 +50,14 @@ export const MusicRegister = () => {
   };
 
   return (
-    <MusicRegisterLayout
-      onClickNextButton={async (selectedMusic) => {
-        await registerMusic(selectedMusic);
-      }}
-      onClickSearchButton={async (value) => await onSearch(value)}
-      searchResult={searchResult}
-    />
+    <Frame iconURL={iconURL} isStart={false}>
+      <MusicRegisterLayout
+        onClickNextButton={async (selectedMusic) => {
+          await registerMusic(selectedMusic);
+        }}
+        onClickSearchButton={async (value) => await onSearch(value)}
+        searchResult={searchResult}
+      />
+    </Frame>
   );
 };
