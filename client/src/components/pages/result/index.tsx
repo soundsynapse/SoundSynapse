@@ -24,31 +24,32 @@ export const Result = () => {
   const navigate = useNavigate();
 
   const getResult = async () => {
-    // const res = await fetch(`https://soundsynapse.onrender.com/hogehoge`, {
-    //   method: "GET",
-    //   mode: "cors",
-    // });
-    // const result = await res.json();
-    alert(
-      `ユーザーid : ${userId}, イベントid: ${eventId}でマッチングAPIを叩く`
+    const res = await fetch(
+      `https://soundsynapse-316201ce96e2.herokuapp.com/music/return_music/`,
+      {
+        method: "GET",
+        mode: "cors",
+      }
     );
-    setData({
-      name: "【公式】技育プロジェクト",
+    const result = await res.json();
+    console.log(result);
+    await setData({
+      name: result.user_id,
       likeMusic: [
         {
-          id: "4LjIQmt1t6NjpM0tpttzjo",
+          id: result.music_id1,
           name: "勇者",
         },
         {
-          id: "1hAloWiinXLPQUJxrJReb1",
+          id: result.music_id2,
           name: "アイドル",
         },
         {
-          id: "1zd35Y44Blc1CwwVbW3Qnk",
+          id: result.music_id3,
           name: "群青",
         },
       ],
-      xId: "geek_pjt",
+      xId: result.user_id,
       image:
         "https://pbs.twimg.com/profile_images/1504992081210916865/4JyOAQLx_400x400.jpg",
     });
