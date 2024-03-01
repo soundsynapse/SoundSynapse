@@ -273,6 +273,6 @@ def return_music():
     db.commit()
 
     closest = matching(event_id, average)
-    print (closest)
+    print(closest)
     # Matching_music(music_id1, music_id2, music_id3)
     return "ok"
