@@ -27,7 +27,7 @@ CORS(music)
 ai = Blueprint("embedding", __name__, url_prefix="/ai")
 
 # 変更点: バッチでエンベディングを取得する関数を追加
-def get_embedding_batch(texts, model="text-embedding-ada-002"):
+def get_embedding_batch(texts, model="text-embedding-3-small"):
     embeddings = openai.Embedding.create(input=texts, model=model)
     return [embedding['embedding'] for embedding in embeddings['data']]
 
