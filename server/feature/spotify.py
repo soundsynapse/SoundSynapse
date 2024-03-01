@@ -95,6 +95,7 @@ def Matching_music_test(music1, music2, music3):
     db = get_db()
     cursor = db.cursor()
 
+    wait_seconds=2
     cursor.execute("SELECT * FROM music WHERE music_id = %s", (music1,))
     music1_data = cursor.fetchone()
 
@@ -108,30 +109,20 @@ def Matching_music_test(music1, music2, music3):
         try:
             music1_vector = get_embedding(json.dumps(music1_data))
             break
-        except openai.RateLimitError as e:
-            wait_seconds = int(e.headers.get('Retry-After', 60))  # Default to 60 seconds if Retry-After is not present
-            print(f"Rate limit exceeded. Sleeping for {wait_seconds} seconds.")
+        except :
             time.sleep(wait_seconds)
 
     while True:
         try:
             music2_vector = get_embedding(json.dumps(music2_data))
             break
-        except openai.RateLimitError as e:
-            wait_seconds = int(
-                e.headers.get("Retry-After", 60)
-            )  # Default to 60 seconds if Retry-After is not present
-            print(f"Rate limit exceeded. Sleeping for {wait_seconds} seconds.")
+        except:
             time.sleep(wait_seconds)
     while True:
         try:
             music3_vector = get_embedding(json.dumps(music3_data))
             break
-        except openai.RateLimitError as e:
-            wait_seconds = int(
-                e.headers.get("Retry-After", 60)
-            )  # Default to 60 seconds if Retry-After is not present
-            print(f"Rate limit exceeded. Sleeping for {wait_seconds} seconds.")
+        except:
             time.sleep(wait_seconds)
 
     return {"DBの情報": music1_data, "vectorの情報": music1_vector}
