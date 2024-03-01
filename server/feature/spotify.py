@@ -8,19 +8,15 @@ from .db import get_db
 from flask_cors import CORS
 import json
 import numpy as np
-
-# Matching
-import time
-from sklearn.metrics.pairwise import cosine_similarity
-import openai  # 変更点: OpenAIのクライアントライブラリを直接使用
+import openai  # OpenAIのクライアントライブラリを使用
 
 load_dotenv()
 
 client_id = os.environ["SP_CLI_KEY"]
 client_secret = os.environ["SP_SCR_KEY"]
 
-api_key = os.environ["OPEN_AI_KEY"]
-openai.api_key = api_key  # 変更点: OpenAIのAPIキーを設定
+api_key = os.environ.get("OPEN_AI_KEY")
+openai.api_key = api_key  # OpenAIのAPIキーを設定
 
 client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -35,6 +31,14 @@ def get_embedding_batch(texts, model="text-embedding-ada-002"):
     embeddings = openai.Embedding.create(input=texts, model=model)
     return [embedding['embedding'] for embedding in embeddings['data']]
 
+# 変更点: 数値属性をテキスト説明に変換する関数を追加
+def convert_music_data_to_text(music_data):
+    text_descriptions = []
+    for data in music_data:
+        description = f"Music ID {data['music_id']} has an acousticness of {data['acousticness']}, danceability of {data['danceability']}, duration of {data['duration_ms']} ms, energy of {data['energy']}, instrumentalness of {data['instrumentalness']}, key of {data['key']}, liveness of {data['liveness']}, loudness of {data['loudness']} dB, mode of {data['mode']}, speechiness of {data['speechiness']}, tempo of {data['tempo']} BPM, time signature of {data['time_signature']}, and valence of {data['valence']}."
+        text_descriptions.append(description)
+    return text_descriptions
+
 def Matching_music(music1, music2, music3):
     db = get_db()
     cursor = db.cursor()
@@ -48,17 +52,19 @@ def Matching_music(music1, music2, music3):
     cursor.execute("SELECT * FROM music WHERE music_id = %s", (music3,))
     music3_data = cursor.fetchone()
     
-    # 変更点: 一度に複数の音楽データのエンベディングを取得するように変更
+    # 変更点: 音楽データの数値属性をテキスト説明に変換
     music_data_list = [music1_data, music2_data, music3_data]
-    music_jsons = [json.dumps(music_data) for music_data in music_data_list]
-    music_vectors = get_embedding_batch(music_jsons)
+    music_text_descriptions = convert_music_data_to_text(music_data_list)
+    
+    # 変更点: テキスト説明からエンベディングを取得
+    music_vectors = get_embedding_batch(music_text_descriptions)
 
     cursor.execute("SELECT * FROM music")
     all_music_data = cursor.fetchall()
     
-    # 変更点: 全音楽データに対してもバッチ処理を適用
-    all_music_jsons = [json.dumps(music_data) for music_data in all_music_data]
-    all_music_vectors = get_embedding_batch(all_music_jsons)
+    # 変更点: 全音楽データに対しても同様の変換を適用
+    all_music_text_descriptions = convert_music_data_to_text(all_music_data)
+    all_music_vectors = get_embedding_batch(all_music_text_descriptions)
 
     similarities = cosine_similarity(music_vectors, all_music_vectors)
     most_similar_indices = np.argmax(similarities, axis=1)
