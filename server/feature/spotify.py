@@ -250,6 +250,8 @@ def return_music():
     data = request.get_json()
     music_ids = data["music"]
     user_id = data["userid"]  # Assuming this is the user ID
+    icon_url = ["icon_url"]
+    name = data["name"]
     event_id = int(data["eventid"])
 
     music_id1 = music_ids[0]
@@ -267,12 +269,12 @@ def return_music():
     cursor.execute(
         "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
         (
-            event_id,
+            user_id,
+            icon_url,
+            name,
             music_id1,
             music_id2,
             music_id3,
-            average,
-            user_id,
         ),
     )
     db.commit()
