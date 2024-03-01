@@ -243,7 +243,7 @@ def insert_info_music(id):
     return average
 
 @music.route("/return_music/<string:userid>/<string:event_id>/<string:music_id1>/<string:music_id2>/<string:music_id3>")
-def return_music(userid,eventid,music_id1,music_id2,music_id3):
+def return_music(userid,event_id,music_id1,music_id2,music_id3):
     ave_index = 3
     user_id = userid  # Assuming this is the user ID
     name = name
