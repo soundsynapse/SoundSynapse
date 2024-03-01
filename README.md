@@ -1,1 +1,5 @@
-# geek_hackathon_b
+# SoundSynapse
+
+フロントエンド
+
+バックエンド
