@@ -87,6 +87,29 @@ def Matching_music(music1, music2, music3):
 # 使用例result = Matching_music("music_id1", "music_id2", "music_id3")
 # print(result)
 
+def Matching_music_test(music1, music2, music3):
+
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute("SELECT * FROM music WHERE music_id = %s", (music1,))
+    music1_data = cursor.fetchone()
+
+    cursor.execute("SELECT * FROM music WHERE music_id = %s", (music2,))
+    music2_data = cursor.fetchone()
+
+    cursor.execute("SELECT * FROM music WHERE music_id = %s", (music3,))
+    music3_data = cursor.fetchone()
+    # music1, music2, music3の情報をJSON形式に変換してベクトル化
+    music1_vector = get_embedding(json.dumps(music1_data))
+    music2_vector = get_embedding(json.dumps(music2_data))
+    music3_vector = get_embedding(json.dumps(music3_data))
+    return {"DBの情報":music1_data,"vectorの情報":music1_vector}
+
+@music.route("/matching_music/")
+def matching_music():
+    result = Matching_music_test("7zbfS30vKiHU8oBs6Wi1Qp", "7zbfS30vKiHU8oBs6Wi1Qp", "7zbfS30vKiHU8oBs6Wi1Qp")
+    return result
 
 @music.route("/artist/<string:artist>")
 def return_artist(artist):
@@ -204,5 +227,5 @@ def return_music():
     )
     db.commit()
 
-    Matching_music(music_id1, music_id2, music_id3)
+    #Matching_music(music_id1, music_id2, music_id3)
     return "ok"
