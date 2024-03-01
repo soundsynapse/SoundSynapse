@@ -170,7 +170,6 @@ def info_music(id):
     result = sp.audio_features(id)
     return result
 
-
 def insert_info_music(id):
     db = get_db()
     cursor = db.cursor()
@@ -243,13 +242,13 @@ def insert_info_music(id):
 
     return average
 
-@music.route("/return_music/<string:userid>/<string:eventid>/<string:music_id1>/<string:music_id2>/<string:music_id3>")
+@music.route("/return_music/<string:userid>/<string:event_id>/<string:music_id1>/<string:music_id2>/<string:music_id3>")
 def return_music(userid,eventid,music_id1,music_id2,music_id3):
     ave_index = 3
     user_id = userid  # Assuming this is the user ID
     name = name
     icon_url = icon_url
-    event_id = int(eventid)
+    event_id = int(event_id)
     music_id1 = music_id1
     music_id2 = music_id2
     music_id3 = music_id3
@@ -275,7 +274,7 @@ def return_music(userid,eventid,music_id1,music_id2,music_id3):
     )
     db.commit()
 
-    matching_result = matching(user_id,name,icon_url,music_id1,music_id2,music_id3,)
+    matching_result = matching(user_id,name,icon_url,music_id1,music_id2,music_id3)
     #print(closest)
     # Matching_music(music_id1, music_id2, music_id3)
     #waiwai
