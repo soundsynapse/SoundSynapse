@@ -244,7 +244,7 @@ def insert_info_music(id):
     return average
 
 
-@music.route("/return_music/", methods=["POST"])
+@music.route("/return_music/", methods=["POST","GET"])
 def return_music():
     ave_index = 3
     data = request.get_json()
