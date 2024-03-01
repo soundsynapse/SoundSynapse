@@ -127,7 +127,7 @@ def matching_music():
     return result
 
 
-def matching(event_id,average,userid,name,icon_url,music_id1,music_id2,music_id3):
+def matching(event_id, average):
     db = get_db()
     cursor = db.cursor()
 
@@ -136,13 +136,6 @@ def matching(event_id,average,userid,name,icon_url,music_id1,music_id2,music_id3
         (
             event_id,
             average,
-            userid,
-            name,
-            icon_url,
-            music_id1,
-            music_id2,
-            music_id3,
-            
         ),
     )
     vectors = cursor.fetchall()
@@ -150,7 +143,7 @@ def matching(event_id,average,userid,name,icon_url,music_id1,music_id2,music_id3
     closest = min(vectors, key=lambda x: abs(x[0] - average))
     matching_user =[]
     cursor.execute(
-        "SELECT userid,music_id1,music_id2,music_id3,icon_url,name, FROM username WHERE vector = %s", (closest[0],)
+        "SELECT userid,music_id1,music_id2,music_id3 FROM username WHERE vector = %s", (closest[0],)
     )
     matching_user.append(cursor.fetchone())
     return matching_user
@@ -176,6 +169,7 @@ def info_music(id):
     # ずとまよの曲「勘が冴えて悔しいわ」のID->7zbfS30vKiHU8oBs6Wi1Qp
     result = sp.audio_features(id)
     return result
+
 
 def insert_info_music(id):
     db = get_db()
@@ -249,16 +243,18 @@ def insert_info_music(id):
 
     return average
 
-@music.route("/return_music/<string:userid>/<string:event_id>/<string:music_id1>/<string:music_id2>/<string:music_id3>")
-def return_music(userid,event_id,music_id1,music_id2,music_id3):
+
+@music.route("/return_music/", methods=["POST","GET"])
+def return_music():
     ave_index = 3
-    userid = userid  # Assuming this is the user ID
-    name = name
-    icon_url = icon_url
-    event_id = int(event_id)
-    music_id1 = music_id1
-    music_id2 = music_id2
-    music_id3 = music_id3
+    data = request.get_json()
+    music_ids = data["music"]
+    user_id = data["userid"]  # Assuming this is the user ID
+    event_id = int(data["eventid"])
+
+    music_id1 = music_ids[0]
+    music_id2 = music_ids[1]
+    music_id3 = music_ids[2]
 
     ave1 = insert_info_music(music_id1)
     ave2 = insert_info_music(music_id2)
@@ -271,17 +267,17 @@ def return_music(userid,event_id,music_id1,music_id2,music_id3):
     cursor.execute(
         "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
         (
-            userid,
-            name,
-            icon_url,
+            event_id,
             music_id1,
             music_id2,
             music_id3,
+            average,
+            user_id,
         ),
     )
     db.commit()
 
-    matching_result = matching(event_id,average,userid,name,icon_url,music_id1,music_id2,music_id3)
+    matching_result = matching(event_id, average)
     #print(closest)
     # Matching_music(music_id1, music_id2, music_id3)
     #waiwai
