@@ -160,8 +160,8 @@ def insert_info_music(id, user_id):
     time_signature = data_dict["time_signature"]
     valence = data_dict["valence"]
 
-    vector = np.array(
-        [
+    ave_val=[]
+    ave_val.extend([
             float(acousticness),
             float(danceability),
             float(duration_ms),
@@ -175,11 +175,12 @@ def insert_info_music(id, user_id):
             float(tempo),
             float(time_signature),
             float(valence),
-        ]
-    )
+    ])
+
+    average=sum(ave_val)/len(ave_val)
 
     insert_sql = """
-    INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
+    INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence,)
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
 
@@ -203,7 +204,7 @@ def insert_info_music(id, user_id):
         ),
     )
 
-    # cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (vector, user_id))
+    cursor.execute("UPDATE username SET vector=%s WHERE userid=%s", (average, user_id))
     db.commit()
 
     return "insert ok!"
