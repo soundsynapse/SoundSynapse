@@ -11,13 +11,8 @@ import numpy as np
 
 # Matching
 import time
-import os
-import numpy as np
-from flask import Blueprint
-from .db import get_db
 from sklearn.metrics.pairwise import cosine_similarity
-from openai import OpenAI
-import openai
+import openai  # 変更点: OpenAIのクライアントライブラリを直接使用
 
 load_dotenv()
 
@@ -25,29 +20,22 @@ client_id = os.environ["SP_CLI_KEY"]
 client_secret = os.environ["SP_SCR_KEY"]
 
 api_key = os.environ.get("OPEN_AI_KEY")
-client = OpenAI(api_key=api_key)
+openai.api_key = api_key  # 変更点: OpenAIのAPIキーを設定
 
-# client_id = os.environ.get("SP_CLI_KEY")
-# client_secret = os.environ.get("SP_SCR_KEY")
-client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(
-    client_id, client_secret
-)
+client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 music = Blueprint("music", __name__, url_prefix="/music")
 CORS(music)
 
-
 ai = Blueprint("embedding", __name__, url_prefix="/ai")
 
-
-def get_embedding(text, model="text-embedding-ada-002"):
-    response = client.embeddings.create(input=[text], model=model)
-    return response.data[0].embedding
-
+# 変更点: バッチでエンベディングを取得する関数を追加
+def get_embedding_batch(texts, model="text-embedding-ada-002"):
+    embeddings = openai.Embedding.create(input=texts, model=model)
+    return [embedding['embedding'] for embedding in embeddings['data']]
 
 def Matching_music(music1, music2, music3):
-
     db = get_db()
     cursor = db.cursor()
 
@@ -59,32 +47,24 @@ def Matching_music(music1, music2, music3):
 
     cursor.execute("SELECT * FROM music WHERE music_id = %s", (music3,))
     music3_data = cursor.fetchone()
-    # music1, music2, music3の情報をJSON形式に変換してベクトル化
-    music1_vector = get_embedding(json.dumps(music1_data))
-    music2_vector = get_embedding(json.dumps(music2_data))
-    music3_vector = get_embedding(json.dumps(music3_data))
+    
+    # 変更点: 一度に複数の音楽データのエンベディングを取得するように変更
+    music_data_list = [music1_data, music2_data, music3_data]
+    music_jsons = [json.dumps(music_data) for music_data in music_data_list]
+    music_vectors = get_embedding_batch(music_jsons)
 
-    # musicから全ての音楽情報を取得
     cursor.execute("SELECT * FROM music")
     all_music_data = cursor.fetchall()
-    # JSON形式に変換してベクトル化
-    all_music_vectors = []
-    for music_data in all_music_data:
-        music_vector = get_embedding(json.dumps(music_data))
-        all_music_vectors.append(music_vector)
+    
+    # 変更点: 全音楽データに対してもバッチ処理を適用
+    all_music_jsons = [json.dumps(music_data) for music_data in all_music_data]
+    all_music_vectors = get_embedding_batch(all_music_jsons)
 
-    # コサイン類似度を計算
-    similarities = cosine_similarity(
-        [music1_vector, music2_vector, music3_vector], all_music_vectors
-    )
-
+    similarities = cosine_similarity(music_vectors, all_music_vectors)
     most_similar_indices = np.argmax(similarities, axis=1)
-    most_similar_music_ids = [
-        all_music_data[i]["music_id"] for i in most_similar_indices
-    ]
-    # 最も類似した音楽IDをJSON形式で返す
+    most_similar_music_ids = [all_music_data[i]["music_id"] for i in most_similar_indices]
+    
     return json.dumps(most_similar_music_ids)
-
 
 # 使用例result = Matching_music("music_id1", "music_id2", "music_id3")
 # print(result)
