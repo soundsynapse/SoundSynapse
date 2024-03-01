@@ -8,8 +8,8 @@ from .db import get_db
 from flask_cors import CORS
 import json
 import numpy as np
-
 # Matching
+import time
 import os
 import numpy as np
 from flask import Blueprint
@@ -101,9 +101,26 @@ def Matching_music_test(music1, music2, music3):
     cursor.execute("SELECT * FROM music WHERE music_id = %s", (music3,))
     music3_data = cursor.fetchone()
     # music1, music2, music3の情報をJSON形式に変換してベクトル化
-    music1_vector = get_embedding(json.dumps(music1_data))
-    music2_vector = get_embedding(json.dumps(music2_data))
-    music3_vector = get_embedding(json.dumps(music3_data))
+    while True:
+        try:
+            music1_vector = get_embedding(json.dumps(music1_data))
+            break
+        except openai.RateLimitError as e:
+            time.sleep(e.wait_seconds)
+    
+    while True:
+        try:
+            music2_vector = get_embedding(json.dumps(music2_data))
+            break
+        except openai.RateLimitError as e:
+            time.sleep(e.wait_seconds)
+    while True:
+        try:
+            music3_vector = get_embedding(json.dumps(music3_data))
+            break
+        except openai.RateLimitError as e:
+            time.sleep(e.wait_seconds)
+
     return {"DBの情報":music1_data,"vectorの情報":music1_vector}
 
 @music.route("/matching_music/")
