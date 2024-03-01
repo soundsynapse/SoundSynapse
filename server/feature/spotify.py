@@ -16,6 +16,7 @@ from flask import Blueprint
 from .db import get_db
 from sklearn.metrics.pairwise import cosine_similarity
 from openai import OpenAI
+import openai
 
 load_dotenv()
 
