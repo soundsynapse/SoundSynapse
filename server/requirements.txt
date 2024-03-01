@@ -1,6 +1,6 @@
 Flask==2.3.3
 Werkzeug==2.3.7
-openai
+openai==0.28
 flask_sqlalchemy
 psycopg2-binary
 pandas
