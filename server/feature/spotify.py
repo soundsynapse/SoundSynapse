@@ -18,7 +18,9 @@ client_secret = os.environ["SP_SCR_KEY"]
 api_key = os.environ["OPENAI_API_KEY"]
 openai.api_key = api_key  # OpenAIのAPIキーを設定
 
-client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret)
+client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(
+    client_id, client_secret
+)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 music = Blueprint("music", __name__, url_prefix="/music")
@@ -26,10 +28,12 @@ CORS(music)
 
 ai = Blueprint("embedding", __name__, url_prefix="/ai")
 
+
 # 変更点: バッチでエンベディングを取得する関数を追加
 def get_embedding_batch(texts, model="text-embedding-3-small"):
     embeddings = openai.Embedding.create(input=texts, model=model)
-    return [embedding['embedding'] for embedding in embeddings['data']]
+    return [embedding["embedding"] for embedding in embeddings["data"]]
+
 
 # 変更点: 数値属性をテキスト説明に変換する関数を追加
 def convert_music_data_to_text(music_data):
@@ -38,6 +42,7 @@ def convert_music_data_to_text(music_data):
         description = f"Music ID {data['music_id']} has an acousticness of {data['acousticness']}, danceability of {data['danceability']}, duration of {data['duration_ms']} ms, energy of {data['energy']}, instrumentalness of {data['instrumentalness']}, key of {data['key']}, liveness of {data['liveness']}, loudness of {data['loudness']} dB, mode of {data['mode']}, speechiness of {data['speechiness']}, tempo of {data['tempo']} BPM, time signature of {data['time_signature']}, and valence of {data['valence']}."
         text_descriptions.append(description)
     return text_descriptions
+
 
 def Matching_music(music1, music2, music3):
     db = get_db()
@@ -51,26 +56,29 @@ def Matching_music(music1, music2, music3):
 
     cursor.execute("SELECT * FROM music WHERE music_id = %s", (music3,))
     music3_data = cursor.fetchone()
-    
+
     # 変更点: 音楽データの数値属性をテキスト説明に変換
     music_data_list = [music1_data, music2_data, music3_data]
     music_text_descriptions = convert_music_data_to_text(music_data_list)
-    
+
     # 変更点: テキスト説明からエンベディングを取得
     music_vectors = get_embedding_batch(music_text_descriptions)
 
     cursor.execute("SELECT * FROM music")
     all_music_data = cursor.fetchall()
-    
+
     # 変更点: 全音楽データに対しても同様の変換を適用
     all_music_text_descriptions = convert_music_data_to_text(all_music_data)
     all_music_vectors = get_embedding_batch(all_music_text_descriptions)
 
     similarities = cosine_similarity(music_vectors, all_music_vectors)
     most_similar_indices = np.argmax(similarities, axis=1)
-    most_similar_music_ids = [all_music_data[i]["music_id"] for i in most_similar_indices]
-    
+    most_similar_music_ids = [
+        all_music_data[i]["music_id"] for i in most_similar_indices
+    ]
+
     return json.dumps(most_similar_music_ids)
+
 
 # 使用例result = Matching_music("music_id1", "music_id2", "music_id3")
 # print(result)
@@ -84,7 +92,7 @@ def Matching_music_test():
     # wait_seconds=2
     # #cursor.execute("SELECT * FROM music WHERE music_id = %s", (music1,))
     # music1_data = cursor.fetchone()
-    embedding_test=get_embedding_batch("つかれたよーん")
+    embedding_test = get_embedding_batch("つかれたよーん")
     # cursor.execute("SELECT * FROM music WHERE music_id = %s", (music2,))
     # music2_data = cursor.fetchone()
 
@@ -109,13 +117,14 @@ def Matching_music_test():
     #         time.sleep(wait_seconds)
     return embedding_test
 
-    #return {"DBの情報": music1_data, "vectorの情報": music1_vector}
+    # return {"DBの情報": music1_data, "vectorの情報": music1_vector}
 
 
 @music.route("/matching_music/")
 def matching_music():
     result = Matching_music_test()
     return result
+
 
 @music.route("/artist/<string:artist>")
 def return_artist(artist):
@@ -160,8 +169,9 @@ def insert_info_music(id, user_id):
     time_signature = data_dict["time_signature"]
     valence = data_dict["valence"]
 
-    ave_val=[]
-    ave_val.extend([
+    ave_val = []
+    ave_val.extend(
+        [
             float(acousticness),
             float(danceability),
             float(duration_ms),
@@ -175,12 +185,13 @@ def insert_info_music(id, user_id):
             float(tempo),
             float(time_signature),
             float(valence),
-    ])
+        ]
+    )
 
-    average=sum(ave_val)/len(ave_val)
+    average = sum(ave_val) / len(ave_val)
 
     insert_sql = """
-    INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence,)
+    INSERT INTO music (acousticness, danceability, duration_ms, energy,music_id, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence)
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
 
@@ -200,7 +211,7 @@ def insert_info_music(id, user_id):
             speechiness,
             tempo,
             time_signature,
-            valence,
+            valence
         ),
     )
 
