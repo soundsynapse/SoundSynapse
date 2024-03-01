@@ -127,6 +127,23 @@ def matching_music():
     return result
 
 
+def matching(event_id, average):
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute(
+        "SELECT vector FROM username WHERE event_id = %s AND vector !=%s",
+        (
+            event_id,
+            average,
+        ),
+    )
+    vectors = cursor.fetchall()
+
+    min = min(vectors, key=lambda x: abs(x[[0]] - average))
+    return min
+
+
 @music.route("/artist/<string:artist>")
 def return_artist(artist):
     art_name = artist
@@ -149,7 +166,7 @@ def info_music(id):
     return result
 
 
-def insert_info_music(id, user_id):
+def insert_info_music(id):
     db = get_db()
     cursor = db.cursor()
 
@@ -234,9 +251,9 @@ def return_music():
     music_id2 = music_ids[1]
     music_id3 = music_ids[2]
 
-    ave1 = insert_info_music(music_id1, user_id)
-    ave2 = insert_info_music(music_id2, user_id)
-    ave3 = insert_info_music(music_id3, user_id)
+    ave1 = insert_info_music(music_id1)
+    ave2 = insert_info_music(music_id2)
+    ave3 = insert_info_music(music_id3)
     average = (ave1 + ave2 + ave3) / ave_index
 
     db = get_db()
@@ -244,9 +261,18 @@ def return_music():
 
     cursor.execute(
         "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
-        (event_id, music_id1, music_id2, music_id3, average,user_id, ),
+        (
+            event_id,
+            music_id1,
+            music_id2,
+            music_id3,
+            average,
+            user_id,
+        ),
     )
     db.commit()
 
+    match_music = matching(event_id, average)
+    print (match_music)
     # Matching_music(music_id1, music_id2, music_id3)
     return "ok"
