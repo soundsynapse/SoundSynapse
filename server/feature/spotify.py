@@ -105,10 +105,10 @@ def Matching_music_test(music1, music2, music3):
     cursor.execute("SELECT * FROM music WHERE music_id = %s", (music3,))
     music3_data = cursor.fetchone()
     # music1, music2, music3の情報をJSON形式に変換してベクトル化
-    try:
-        music1_vector = get_embedding(json.dumps(music1_data))
-    except :
-        return "error"
+    # try:
+    #     music1_vector = get_embedding(json.dumps(music1_data))
+    # except :
+    #     return "error"
     # while True:
     #     try:
     #         music2_vector = get_embedding(json.dumps(music2_data))
@@ -121,8 +121,9 @@ def Matching_music_test(music1, music2, music3):
     #         break
     #     except:
     #         time.sleep(wait_seconds)
+    return json.dumps(music1_data)
 
-    return {"DBの情報": music1_data, "vectorの情報": music1_vector}
+    #return {"DBの情報": music1_data, "vectorの情報": music1_vector}
 
 
 @music.route("/matching_music/")
