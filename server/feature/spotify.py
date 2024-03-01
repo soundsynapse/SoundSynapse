@@ -127,7 +127,7 @@ def matching_music():
     return result
 
 
-def matching(event_id, average):
+def matching(event_id,average,userid,name,icon_url,music_id1,music_id2,music_id3):
     db = get_db()
     cursor = db.cursor()
 
@@ -136,6 +136,13 @@ def matching(event_id, average):
         (
             event_id,
             average,
+            userid,
+            name,
+            icon_url,
+            music_id1,
+            music_id2,
+            music_id3,
+            
         ),
     )
     vectors = cursor.fetchall()
@@ -143,7 +150,7 @@ def matching(event_id, average):
     closest = min(vectors, key=lambda x: abs(x[0] - average))
     matching_user =[]
     cursor.execute(
-        "SELECT userid,music_id1,music_id2,music_id3 FROM username WHERE vector = %s", (closest[0],)
+        "SELECT userid,music_id1,music_id2,music_id3,icon_url,name, FROM username WHERE vector = %s", (closest[0],)
     )
     matching_user.append(cursor.fetchone())
     return matching_user
@@ -274,7 +281,7 @@ def return_music(userid,event_id,music_id1,music_id2,music_id3):
     )
     db.commit()
 
-    matching_result = matching(userid,name,icon_url,music_id1,music_id2,music_id3,average)
+    matching_result = matching(event_id,average,userid,name,icon_url,music_id1,music_id2,music_id3)
     #print(closest)
     # Matching_music(music_id1, music_id2, music_id3)
     #waiwai
