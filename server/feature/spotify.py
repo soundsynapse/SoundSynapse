@@ -140,7 +140,7 @@ def matching(event_id, average):
     )
     vectors = cursor.fetchall()
 
-    closest = min(vectors, key=lambda x: abs(x[[0]] - average))
+    closest = min(vectors, key=lambda x: abs(x[0] - average))
     return closest
 
 
