@@ -243,20 +243,16 @@ def insert_info_music(id):
 
     return average
 
-
-@music.route("/return_music/", methods=["POST","GET"])
-def return_music():
+@music.route("/return_music/<string:userid>/<string:eventid>/<string:music_id1>/<string:music_id2>/<string:music_id3>")
+def return_music(userid,eventid,music_id1,music_id2,music_id3):
     ave_index = 3
-    data = request.get_json()
-    music_ids = data["music"]
-    user_id = data["userid"]  # Assuming this is the user ID
-    icon_url = ["icon_url"]
-    name = data["name"]
-    event_id = int(data["eventid"])
-
-    music_id1 = music_ids[0]
-    music_id2 = music_ids[1]
-    music_id3 = music_ids[2]
+    user_id = userid  # Assuming this is the user ID
+    name = name
+    icon_url = icon_url
+    event_id = int(eventid)
+    music_id1 = music_id1
+    music_id2 = music_id2
+    music_id3 = music_id3
 
     ave1 = insert_info_music(music_id1)
     ave2 = insert_info_music(music_id2)
@@ -270,8 +266,8 @@ def return_music():
         "UPDATE username SET event_id = %s, music_id1 = %s, music_id2 = %s, music_id3 = %s,vector=%s WHERE userid = %s",
         (
             user_id,
-            icon_url,
             name,
+            icon_url,
             music_id1,
             music_id2,
             music_id3,
@@ -279,7 +275,7 @@ def return_music():
     )
     db.commit()
 
-    matching_result = matching(event_id, average)
+    matching_result = matching(user_id,name,icon_url,music_id1,music_id2,music_id3,)
     #print(closest)
     # Matching_music(music_id1, music_id2, music_id3)
     #waiwai
