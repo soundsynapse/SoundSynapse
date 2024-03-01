@@ -15,8 +15,8 @@ load_dotenv()
 client_id = os.environ["SP_CLI_KEY"]
 client_secret = os.environ["SP_SCR_KEY"]
 
-api_key1 = os.environ["OPEN_AI_KEY"]
-openai.api_key = api_key1  # OpenAIのAPIキーを設定
+api_key = os.environ["OPEN_AI_KEY"]
+openai.api_key = api_key  # OpenAIのAPIキーを設定
 
 client_credentials_manager = spotipy.oauth2.SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
