@@ -41,19 +41,14 @@ function App() {
         updateValue: updateValue,
       }}
     >
-      <Frame
-        iconURL={userData.iconURL}
-        isStart={window.location.href === "https://sound-synapse.vercel.app/"}
-      >
-        <Routes>
-          <Route path="/" element={<Start />} />
-          <Route path="/event-list" element={<EventList />} />
-          <Route path="/event-register" element={<EventRegister />} />
-          <Route path="/login" element={<LoginView />} />
-          <Route path="/music-register" element={<MusicRegister />} />
-          <Route path="/result" element={<Result />} />
-        </Routes>
-      </Frame>
+      <Routes>
+        <Route path="/" element={<Start />} />
+        <Route path="/event-list" element={<EventList />} />
+        <Route path="/event-register" element={<EventRegister />} />
+        <Route path="/login" element={<LoginView />} />
+        <Route path="/music-register" element={<MusicRegister />} />
+        <Route path="/result" element={<Result />} />
+      </Routes>
     </UserContext.Provider>
   );
 }

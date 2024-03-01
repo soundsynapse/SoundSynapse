@@ -3,6 +3,7 @@ import { ResultLayout } from "./layout";
 import { useNavigate } from "react-router-dom";
 import { Data } from "../../parts/searchResult";
 import { UserContext } from "../../../App";
+import { Frame } from "../../parts/frame";
 
 type DataType = {
   name: string;
@@ -13,7 +14,7 @@ type DataType = {
 
 export const Result = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { userId, eventId } = useContext(UserContext);
+  const { userId, eventId, iconURL } = useContext(UserContext);
   const [data, setData] = useState<DataType>({
     name: "",
     likeMusic: [],
@@ -59,13 +60,15 @@ export const Result = () => {
   }, []);
 
   return (
-    <ResultLayout
-      name={data.name}
-      likeMusic={data.likeMusic}
-      isLoading={isLoading}
-      xId={data.xId}
-      onClickBackButton={() => navigate("/")}
-      image={data.image}
-    />
+    <Frame iconURL={iconURL} isStart={false}>
+      <ResultLayout
+        name={data.name}
+        likeMusic={data.likeMusic}
+        isLoading={isLoading}
+        xId={data.xId}
+        onClickBackButton={() => navigate("/")}
+        image={data.image}
+      />
+    </Frame>
   );
 };

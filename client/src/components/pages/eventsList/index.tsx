@@ -3,6 +3,7 @@ import { EventsListLayout } from "./layout";
 import { UserContext } from "../../../App";
 import { useContext, useEffect, useState } from "react";
 import { Data } from "../../parts/searchResult";
+import { Frame } from "../../parts/frame";
 
 export const EventList = () => {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ export const EventList = () => {
 
   useEffect(() => {
     getEvent();
-    console.log(query.get("icon_url"));
     if (query.get("icon_url") == undefined) return;
     updateValue({
       eventId: eventId,
@@ -37,19 +37,24 @@ export const EventList = () => {
   }, []);
 
   return (
-    <EventsListLayout
-      events={event}
-      onClickEvent={(id) => {
-        updateValue({
-          eventId: id,
-          userId: query.get("userid") ? query.get("userid") || "" : userId,
-          iconURL: query.get("icon_url")
-            ? decodeURIComponent(query.get("icon_url") || "")
-            : iconURL,
-        });
-        navigate("/music-register");
-      }}
-      onClickCreateButton={() => navigate("/event-register")}
-    />
+    <Frame
+      iconURL={decodeURIComponent(query.get("icon_url") || "")}
+      isStart={false}
+    >
+      <EventsListLayout
+        events={event}
+        onClickEvent={(id) => {
+          updateValue({
+            eventId: id,
+            userId: query.get("userid") ? query.get("userid") || "" : userId,
+            iconURL: query.get("icon_url")
+              ? decodeURIComponent(query.get("icon_url") || "")
+              : iconURL,
+          });
+          navigate("/music-register");
+        }}
+        onClickCreateButton={() => navigate("/event-register")}
+      />
+    </Frame>
   );
 };
