@@ -25,7 +25,7 @@ export const Result = () => {
 
   const getResult = async () => {
     const res = await fetch(
-      `https://soundsynapse-316201ce96e2.herokuapp.com/music/matching/1/raisins_verte`,
+      `https://soundsynapse-316201ce96e2.herokuapp.com/music/matching/${eventId}/${userId}`,
       {
         method: "GET",
         mode: "cors",
