@@ -140,7 +140,7 @@ def matching(event_id, average):
     )
     vectors = cursor.fetchall()
 
-    closest = min(vectors, key=lambda x: abs(x[0] - average))
+    closest = min(vectors, key=lambda x: abs(x[0] - average[0]))
     matching_user =[]
     cursor.execute(
         "SELECT name,icon_url,music_id1,music_id2,music_id3,userid FROM username WHERE vector = %s", (closest[0],)
