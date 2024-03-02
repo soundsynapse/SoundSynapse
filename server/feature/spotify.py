@@ -282,7 +282,7 @@ def return_music():
     #waiwai
     return "ok"
 
-@music.route("/matching/<string:eventid>/<string:userid>",methods=["GET"])
+@music.route("/matching/<int:event_id>/<string:user_id>",methods=["GET"])
 def matching_ss(event_id, user_id):
     db=get_db()
     cursor=db.cursor()
