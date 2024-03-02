@@ -33,23 +33,23 @@ export const Result = () => {
     );
     const result = await res.json();
     console.log(result);
-    await setData({
-      name: result.user_id,
+    setData({
+      name: "【公式】技育プロジェクト",
       likeMusic: [
         {
-          id: result.music_id1,
+          id: "4LjIQmt1t6NjpM0tpttzjo",
           name: "勇者",
         },
         {
-          id: result.music_id2,
+          id: "1hAloWiinXLPQUJxrJReb1",
           name: "アイドル",
         },
         {
-          id: result.music_id3,
+          id: "1zd35Y44Blc1CwwVbW3Qnk",
           name: "群青",
         },
       ],
-      xId: result.user_id,
+      xId: "geek_pjt",
       image:
         "https://pbs.twimg.com/profile_images/1504992081210916865/4JyOAQLx_400x400.jpg",
     });
