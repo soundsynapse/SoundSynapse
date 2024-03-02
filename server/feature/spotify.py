@@ -282,10 +282,10 @@ def return_music():
     #waiwai
     return "ok"
 
-@music.route("/matching/<eventid:string>/<userid:string>",methods=["GET"])
-def matching(event_id, user_id):
-    db=get_db()
-    cursor=db.cursor()
-    average=cursor.execute("SELECT vector FROM username WHERE event_id = %s ",(event_id,))
-    matching_result = matching(event_id, average)
-    return matching_result
+# @music.route("/matching/<eventid:string>/<userid:string>",methods=["GET"])
+# def matching(event_id, user_id):
+#     db=get_db()
+#     cursor=db.cursor()
+#     average=cursor.execute("SELECT vector FROM username WHERE event_id = %s ",(event_id,))
+#     matching_result = matching(event_id, average)
+#     return matching_result
