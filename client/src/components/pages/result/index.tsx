@@ -25,33 +25,32 @@ export const Result = () => {
 
   const getResult = async () => {
     const res = await fetch(
-      `https://soundsynapse-316201ce96e2.herokuapp.com/music/return_music/`,
+      `https://soundsynapse-316201ce96e2.herokuapp.com/music/matching/1/raisins_verte`,
       {
         method: "GET",
         mode: "cors",
       }
     );
     const result = await res.json();
-    console.log(result);
+    console.log(result[0]);
     setData({
-      name: "【公式】技育プロジェクト",
+      name: result[0][0],
       likeMusic: [
         {
-          id: "4LjIQmt1t6NjpM0tpttzjo",
+          id: result[0][2],
           name: "勇者",
         },
         {
-          id: "1hAloWiinXLPQUJxrJReb1",
+          id: result[0][3],
           name: "アイドル",
         },
         {
-          id: "1zd35Y44Blc1CwwVbW3Qnk",
+          id: result[0][4],
           name: "群青",
         },
       ],
-      xId: "geek_pjt",
-      image:
-        "https://pbs.twimg.com/profile_images/1504992081210916865/4JyOAQLx_400x400.jpg",
+      xId: result[0][5],
+      image: result[0][1],
     });
     setIsLoading(false);
   };
